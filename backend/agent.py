@@ -103,12 +103,28 @@ class ClosifyAgent:
             session["last_product"] = "Kaos Boxy Gojo Satoru 'The Honored One'"
             session["last_sku"] = "JJK-WSH-L"
 
-        # Perkaya prompt ke Gemini dengan konteks produk aktif jika pembeli merujuk ke produk sebelumnya
-        prompt_for_gemini = user_clean
+        # Ekstrak respons terakhir dari bot untuk kontinuitas konteks yang kuat
+        last_bot_reply = ""
+        if history:
+            for past_turn in reversed(history):
+                if past_turn.get("role") == "model":
+                    parts = past_turn.get("parts", [])
+                    if parts and "text" in parts[0]:
+                        last_bot_reply = parts[0]["text"].strip()
+                        break
+
+        # Susun prefix konteks percakapan untuk Gemini
+        context_cues = []
         if session.get("last_product"):
-            has_explicit_product = any(k in user_lower for k in ["one piece", "nika", "gojo", "jjk", "satoru", "aot", "oxford", "scout", "csm", "chino", "chainsaw"])
-            if not has_explicit_product and any(w in user_lower for w in ["produk ini", "yang ini", "yang tadi", "ini", "tinggi", "berat", "tb", "bb", "ukuran", "cocok", "pas"]):
-                prompt_for_gemini = f"[Konteks produk yang sedang aktif dibahas: {session['last_product']}] {user_clean}"
+            context_cues.append(f"Produk aktif yang sedang dibahas: '{session['last_product']}'")
+        if last_bot_reply:
+            # Ambil intisari pesan bot terakhir (maksimal 200 karakter)
+            snippet = (last_bot_reply[:200] + "...") if len(last_bot_reply) > 200 else last_bot_reply
+            context_cues.append(f"Respons/pertanyaan Closify sebelumnya: \"{snippet}\"")
+
+        prompt_for_gemini = user_clean
+        if context_cues:
+            prompt_for_gemini = f"[Konteks Percakapan: {' | '.join(context_cues)}]\nPesan Pengguna: {user_clean}"
 
         # Coba jalankan via Live Gemini 3.5 Flash Lite dengan riwayat percakapan multi-turn
         success, reply_text, tool_name, tool_data = self.live_engine.execute_chat_with_tools(
@@ -120,14 +136,16 @@ class ClosifyAgent:
             logger.info(f"[RESPONSE VIA LIVE GEMINI 3.5] Tool: {tool_name}")
             cleaned_reply = strip_emojis(reply_text)
             
-            # Perbarui produk terakhir jika tool mengembalikan produk spesifik
+            # Perbarui produk terakhir jika tool mengembalikan produk spesifik dan relevan
             if tool_name in ["check_inventory_and_specs", "check_inventory"] and tool_data and tool_data.get("products"):
                 p_first = tool_data["products"][0]
-                session["last_product"] = p_first.get("name", session.get("last_product", ""))
-                if p_first.get("variants"):
-                    session["last_sku"] = p_first["variants"][0].get("sku_id", session.get("last_sku", ""))
+                has_product_mention = any(k in user_lower for k in ["one piece", "nika", "gojo", "jjk", "satoru", "aot", "oxford", "scout", "csm", "chino", "chainsaw"])
+                if not session.get("last_product") or has_product_mention:
+                    session["last_product"] = p_first.get("name", session.get("last_product", ""))
+                    if p_first.get("variants"):
+                        session["last_sku"] = p_first["variants"][0].get("sku_id", session.get("last_sku", ""))
 
-            # Simpan giliran percakapan ke memori sesi (simpan user_clean asli agar riwayat natural)
+            # Simpan giliran percakapan ke memori sesi
             history.append({"role": "user", "parts": [{"text": user_clean}]})
             history.append({"role": "model", "parts": [{"text": cleaned_reply}]})
 

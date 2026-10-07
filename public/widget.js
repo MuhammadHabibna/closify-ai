@@ -195,8 +195,17 @@
   triggerBtn.addEventListener("click", () => openChat());
   closeBtn.addEventListener("click", closeChat);
 
-  // Append bubble
-  function appendMessage(text, sender = "bot", uiCard = null, quickChipsList = null, userImage = null) {
+  // Markdown text formatter
+  function formatMarkdown(raw) {
+    if (!raw) return "";
+    return raw
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(/\n/g, "<br/>");
+  }
+
+  // Append bubble (supports progressive word-by-word streaming for bot)
+  async function appendMessage(text, sender = "bot", uiCard = null, quickChipsList = null, userImage = null, stream = false) {
     const wrap = document.createElement("div");
     wrap.className = `closify-bubble-wrap ${sender}`;
 
@@ -227,16 +236,30 @@
       bubble.appendChild(imgEl);
     }
 
-    if (text) {
-      let formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\*(.*?)\*/g, "<em>$1</em>")
-        .replace(/\n/g, "<br/>");
-      const textDiv = document.createElement("div");
-      textDiv.innerHTML = formattedText;
-      bubble.appendChild(textDiv);
-    }
+    const textDiv = document.createElement("div");
+    bubble.appendChild(textDiv);
     wrap.appendChild(bubble);
+    messagesArea.appendChild(wrap);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+
+    // Word-by-word streaming typewriter effect if bot and stream is true
+    if (sender === "bot" && stream && text) {
+      const words = text.split(" ");
+      let currentAccum = "";
+      for (let i = 0; i < words.length; i++) {
+        currentAccum += (i === 0 ? "" : " ") + words[i];
+        textDiv.innerHTML = formatMarkdown(currentAccum) + `<span class="closify-stream-cursor"></span>`;
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+
+        const w = words[i];
+        const isEndPunctuation = /[.,!?:\n]$/.test(w);
+        const delay = isEndPunctuation ? 36 : 14;
+        await new Promise(r => setTimeout(r, delay));
+      }
+      textDiv.innerHTML = formatMarkdown(currentAccum);
+    } else if (text) {
+      textDiv.innerHTML = formatMarkdown(text);
+    }
 
     // Interactive Option Chips (Compact Modern Pills)
     if (quickChipsList && quickChipsList.length > 0) {
@@ -253,18 +276,19 @@
         chipsContainer.appendChild(chipBtn);
       });
       wrap.appendChild(chipsContainer);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
     }
 
-    // Render interactive UI cards
+    // Render interactive UI cards with smooth entrance
     if (uiCard) {
+      if (stream) await new Promise(r => setTimeout(r, 60));
       const cardEl = renderCard(uiCard);
       if (cardEl) {
+        cardEl.classList.add("closify-card-pop-enter");
         wrap.appendChild(cardEl);
+        messagesArea.scrollTop = messagesArea.scrollHeight;
       }
     }
-
-    messagesArea.appendChild(wrap);
-    messagesArea.scrollTop = messagesArea.scrollHeight;
   }
 
   // Card Renderers (Zero Emojis, Pure SVG Icons)
@@ -431,14 +455,14 @@
 
     appendMessage(displayText, "user", null, null, imgToSend);
 
-    // Add typing indicator
+    // Add typing indicator with dynamic status rotation
     const typingId = "closify-typing-" + Date.now();
     const typingWrap = document.createElement("div");
     typingWrap.id = typingId;
     typingWrap.className = "closify-bubble-wrap bot";
     typingWrap.innerHTML = `
       <div class="closify-sender-tag">
-        <span class="closify-mini-orb closify-orb-pulse"></span> Closify AI <span>• sedang memeriksa data...</span>
+        <span class="closify-mini-orb closify-orb-pulse"></span> Closify AI <span>• sedang memproses...</span>
       </div>
       <div class="closify-bubble bot-bubble closify-typing-bubble">
         <div class="closify-typing-dots">
@@ -446,11 +470,35 @@
           <span class="typing-dot"></span>
           <span class="typing-dot"></span>
         </div>
-        <span class="typing-text">Menghubungkan ke inventaris & meracik rekomendasi...</span>
+        <span class="typing-text" id="typing-status-${typingId}">Menghubungkan ke katalog Arunika...</span>
       </div>
     `;
     messagesArea.appendChild(typingWrap);
     messagesArea.scrollTop = messagesArea.scrollHeight;
+
+    // Dynamic status text rotation while waiting
+    const waitingStages = [
+      "Menghubungkan ke katalog Arunika...",
+      "Memeriksa sisa stok & varian gudang...",
+      "Menganalisis cutting & rekomendasi terbaik...",
+      "Meracik balasan spesial buat Kakak..."
+    ];
+    let stageIdx = 0;
+    const stageInterval = setInterval(() => {
+      const statusEl = document.getElementById(`typing-status-${typingId}`);
+      if (statusEl) {
+        stageIdx = (stageIdx + 1) % waitingStages.length;
+        statusEl.style.opacity = "0";
+        statusEl.style.transform = "translateY(-3px)";
+        setTimeout(() => {
+          if (statusEl) {
+            statusEl.textContent = waitingStages[stageIdx];
+            statusEl.style.opacity = "1";
+            statusEl.style.transform = "translateY(0)";
+          }
+        }, 180);
+      }
+    }, 1500);
 
     try {
       const res = await fetch("/api/chat", {
@@ -460,23 +508,25 @@
       });
 
       const data = await res.json();
+      clearInterval(stageInterval);
       
       const typingEl = document.getElementById(typingId);
       if (typingEl) {
         typingEl.classList.add("closify-fade-out");
-        await new Promise(r => setTimeout(r, 180));
+        await new Promise(r => setTimeout(r, 160));
         typingEl.remove();
       }
 
-      appendMessage(data.reply, "bot", data.ui_card);
+      await appendMessage(data.reply, "bot", data.ui_card, null, null, true);
     } catch (err) {
+      clearInterval(stageInterval);
       const typingEl = document.getElementById(typingId);
       if (typingEl) {
         typingEl.classList.add("closify-fade-out");
-        await new Promise(r => setTimeout(r, 180));
+        await new Promise(r => setTimeout(r, 160));
         typingEl.remove();
       }
-      appendMessage("Maaf Kak, sambungan ke server backend sedang terputus.", "bot");
+      await appendMessage("Maaf Kak, sambungan ke server backend sedang terputus.", "bot", null, null, null, false);
     }
   }
 

@@ -90,6 +90,13 @@
     <rect x="255" y="320" width="15" height="20"/>
   </g>
 
+  <!-- Watermark Ilustrasi / Simulasi -->
+  <g transform="translate(60, 225)">
+    <rect x="0" y="0" width="220" height="40" rx="8" fill="#ef4444" fill-opacity="0.92" stroke="#ffffff" stroke-width="2"/>
+    <text x="110" y="18" font-family="'Plus Jakarta Sans', Inter, Arial, sans-serif" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">ILUSTRASI SIMULASI</text>
+    <text x="110" y="32" font-family="'Plus Jakarta Sans', Inter, Arial, sans-serif" font-size="8.5" font-weight="700" fill="#fef2f2" text-anchor="middle">BUKAN QRIS ASLI / DEMO ONLY</text>
+  </g>
+
   <!-- GPN / ASPI Footer Logos -->
   <g transform="translate(45, 382)">
     <!-- GPN Badge -->
