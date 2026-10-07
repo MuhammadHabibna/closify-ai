@@ -15,6 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ ./backend/
 COPY data/ ./data/
 COPY public/ ./public/
+COPY SYSTEM_PROMPT_SALES_AGENT.md ./
 
 EXPOSE 8000
 
