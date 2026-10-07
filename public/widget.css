@@ -1,0 +1,802 @@
+/* Closify AI - Omago & ThinkAI Inspired Web Widget Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+#closify-widget-container {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+}
+
+/* Floating Trigger Button */
+.closify-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 10px 22px 10px 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.25), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.closify-trigger-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 25px 50px -10px rgba(124, 58, 237, 0.35);
+}
+
+.closify-trigger-orb {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed 65%, #4c1d95);
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.closify-trigger-label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.closify-trigger-label .title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.closify-trigger-label .subtitle {
+  font-size: 0.72rem;
+  color: #7c3aed;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.closify-live-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10b981;
+}
+
+/* Chat Modal Window - Omago Style Frosted Glass */
+.closify-chat-window {
+  display: none;
+  width: 440px;
+  height: 700px;
+  max-height: calc(100vh - 60px);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 36px;
+  box-shadow: 0 35px 80px -15px rgba(124, 58, 237, 0.28), 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+  flex-direction: column;
+  overflow: hidden;
+  animation: closifyModalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.closify-chat-window.active {
+  display: flex;
+}
+
+@keyframes closifyModalPop {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Chat Header (Omago Style) */
+.closify-header {
+  padding: 18px 22px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.closify-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.closify-orb-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed 65%, #4c1d95);
+  box-shadow: 0 6px 18px rgba(147, 51, 234, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.closify-orb-avatar svg,
+.closify-trigger-orb svg {
+  stroke: #ffffff;
+  width: 22px;
+  height: 22px;
+}
+
+.closify-header-meta h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.closify-header-meta p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.closify-close-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closify-close-circle:hover {
+  background: #334155;
+  transform: scale(1.08);
+}
+
+.closify-close-circle svg {
+  stroke: #ffffff;
+  width: 14px;
+  height: 14px;
+}
+
+/* Chat & Voice Mode Toggle Pills (Omago Reference) */
+.closify-mode-container {
+  display: flex;
+  justify-content: center;
+  padding: 8px 18px 4px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.closify-mode-pill-wrap {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 100px;
+  border: 1px solid #e2e8f0;
+}
+
+.closify-mode-pill {
+  border: none;
+  background: transparent;
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.closify-mode-pill svg {
+  stroke: currentColor;
+}
+
+.closify-mode-pill.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Messages Area */
+.closify-messages-viewport {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(180deg, rgba(245, 243, 255, 0.35) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
+.closify-messages-viewport::-webkit-scrollbar {
+  width: 5px;
+}
+
+.closify-messages-viewport::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+/* Sender Identity Tag */
+.closify-sender-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.closify-sender-tag span {
+  font-weight: 500;
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+.closify-mini-orb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed);
+  display: inline-block;
+}
+
+/* Smooth Entrance Keyframes */
+@keyframes closifyMsgIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  60% {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes closifyCardPop {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.94);
+  }
+  70% {
+    opacity: 0.98;
+    transform: translateY(-3px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Bubbles - Omago Clean White Style */
+.closify-bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+  animation: closifyMsgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.closify-fade-out {
+  opacity: 0 !important;
+  transform: translateY(-8px) scale(0.96) !important;
+  transition: opacity 0.22s ease, transform 0.22s ease !important;
+}
+
+.closify-bubble-wrap.bot {
+  align-self: flex-start;
+}
+
+.closify-bubble-wrap.user {
+  align-self: flex-end;
+}
+
+.closify-bubble {
+  padding: 14px 18px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  transition: all 0.2s ease;
+}
+
+.closify-bubble.bot-bubble {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  border-top-left-radius: 6px;
+}
+
+.closify-bubble.bot-bubble strong {
+  color: #0f172a;
+}
+
+.closify-bubble.user-bubble {
+  background: #0f172a;
+  color: #ffffff;
+  border-top-right-radius: 6px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
+}
+
+/* Animated Typing Bubble */
+.closify-typing-bubble {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.closify-typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7c3aed;
+  display: inline-block;
+  animation: typingDotPulse 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes typingDotPulse {
+  0%, 80%, 100% {
+    transform: scale(0.65);
+    opacity: 0.35;
+  }
+  40% {
+    transform: scale(1.18);
+    opacity: 1;
+    background: #6d28d9;
+  }
+}
+
+.typing-text {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+/* Interactive Option Pills - Compact Minimalist Layout */
+.closify-chip-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.closify-pill-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 100px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: auto;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.closify-pill-option svg {
+  stroke: #94a3b8;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  transition: transform 0.2s, stroke 0.2s;
+}
+
+.closify-pill-option:hover {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.closify-pill-option:hover svg {
+  stroke: #7c3aed;
+  transform: translateX(2px);
+}
+
+/* In-Chat Visual Cards */
+.closify-ui-card {
+  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+  animation: closifyCardPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.08s;
+  will-change: transform, opacity;
+}
+
+/* Product Card */
+.closify-card-prod {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.closify-card-prod img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.closify-card-prod-info h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.closify-card-prod-info .price {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+.btn-card-action {
+  margin-top: 8px;
+  background: #2563eb;
+  border: none;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-card-action svg {
+  stroke: #ffffff;
+}
+
+.btn-card-action:hover {
+  background: #1d4ed8;
+}
+
+/* Size Recommendation Card */
+.closify-size-card {
+  border-left: 4px solid #10b981;
+  background: #f0fdf4;
+}
+
+.closify-size-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.closify-size-badge {
+  background: #10b981;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+/* Dynamic QRIS Checkout Card */
+.closify-qris-card {
+  border: 1px solid #fed7aa;
+  background: #fffbeb;
+  text-align: center;
+  padding: 18px;
+}
+
+.closify-qris-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #fed7aa;
+  padding-bottom: 8px;
+}
+
+.closify-qris-title {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #c2410c;
+}
+
+.closify-countdown {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+
+.closify-qris-img-wrap {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 14px;
+  display: inline-block;
+  margin: 6px auto;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.closify-qris-img-wrap img {
+  width: 190px;
+  height: auto;
+  display: block;
+}
+
+.closify-qris-total {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 10px 0 4px;
+}
+
+.closify-qris-details {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.closify-btn-pay-simulate {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closify-btn-pay-simulate:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.closify-paid-success {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+/* Bottom Floating Input Bar - Omago Inspired */
+.closify-input-wrapper {
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.closify-floating-input-pill {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 100px;
+  padding: 6px 8px 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease;
+}
+
+.closify-floating-input-pill:focus-within {
+  border-color: #7c3aed;
+  background: #ffffff;
+}
+
+.closify-attach-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.closify-attach-btn:hover {
+  color: #7c3aed;
+  background: #f3e8ff;
+}
+
+.closify-attach-preview {
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.closify-attach-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.closify-attach-chip img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.closify-attach-name {
+  font-size: 0.78rem;
+  color: #334155;
+  font-weight: 500;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.closify-attach-remove {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.closify-attach-remove:hover {
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+.closify-user-img {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: block;
+}
+
+.closify-badge-search {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  border-radius: 100px;
+  padding: 6px 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.closify-badge-search:hover {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  transform: translateY(-1px);
+}
+
+.closify-badge-search svg {
+  stroke: #059669;
+}
+
+.closify-floating-input-pill input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.88rem;
+  color: #0f172a;
+  font-family: inherit;
+  min-width: 60px;
+}
+
+.closify-send-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #c084fc, #7c3aed 70%);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.closify-send-circle:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 480px) {
+  #closify-widget-container {
+    bottom: 12px;
+    right: 12px;
+  }
+  .closify-chat-window {
+    width: calc(100vw - 24px);
+    height: calc(100vh - 60px);
+  }
+}

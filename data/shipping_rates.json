@@ -1,0 +1,54 @@
+{
+  "origin": "Surabaya, Jawa Timur",
+  "shipping_partners": ["J&T Cargo", "JNE", "SiCepat", "GoSend (Surabaya Area)"],
+  "destination_rates": [
+    {
+      "destination_city": "Surabaya & Sidoarjo",
+      "rates": {
+        "regular": { "cost_per_kg": 8000, "etd_days": "1 hari" },
+        "next_day": { "cost_per_kg": 15000, "etd_days": "Same Day / 1 hari" },
+        "green_delivery": { "cost_per_kg": 6000, "etd_days": "1-2 hari", "description": "Konsolidasi kurir ramah lingkungan, hemat Rp2.000" }
+      }
+    },
+    {
+      "destination_city": "Jakarta (Semua Wilayah: Tebet, Jaksel, Jakpus, Jakbar, Jaktim, Jakut)",
+      "rates": {
+        "regular": { "cost_per_kg": 12000, "etd_days": "1-2 hari" },
+        "next_day": { "cost_per_kg": 22000, "etd_days": "1 hari (Next Day)" },
+        "green_delivery": { "cost_per_kg": 9000, "etd_days": "2-3 hari", "description": "Konsolidasi armada hemat emisi bahan bakar, hemat Rp3.000" }
+      }
+    },
+    {
+      "destination_city": "Bandung & Jawa Barat",
+      "rates": {
+        "regular": { "cost_per_kg": 14000, "etd_days": "2 hari" },
+        "next_day": { "cost_per_kg": 24000, "etd_days": "1 hari" },
+        "green_delivery": { "cost_per_kg": 10000, "etd_days": "2-3 hari", "description": "Rute terjadwal efisiensi karbon, hemat Rp4.000" }
+      }
+    },
+    {
+      "destination_city": "Semarang & Yogyakarta",
+      "rates": {
+        "regular": { "cost_per_kg": 10000, "etd_days": "1-2 hari" },
+        "next_day": { "cost_per_kg": 18000, "etd_days": "1 hari" },
+        "green_delivery": { "cost_per_kg": 7500, "etd_days": "2 hari", "description": "Pengiriman hijau terencana, hemat Rp2.500" }
+      }
+    },
+    {
+      "destination_city": "Medan & Sumatera Utara",
+      "rates": {
+        "regular": { "cost_per_kg": 28000, "etd_days": "3-4 hari" },
+        "next_day": { "cost_per_kg": 45000, "etd_days": "1-2 hari" },
+        "green_delivery": { "cost_per_kg": 22000, "etd_days": "4-5 hari", "description": "Konsolidasi kargo darat-laut hemat emisi, hemat Rp6.000" }
+      }
+    },
+    {
+      "destination_city": "Denpasar & Bali",
+      "rates": {
+        "regular": { "cost_per_kg": 15000, "etd_days": "1-2 hari" },
+        "next_day": { "cost_per_kg": 25000, "etd_days": "1 hari" },
+        "green_delivery": { "cost_per_kg": 11000, "etd_days": "2-3 hari", "description": "Konsolidasi ekspedisi, hemat Rp4.000" }
+      }
+    }
+  ]
+}

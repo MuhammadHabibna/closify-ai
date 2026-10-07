@@ -1,0 +1,62 @@
+{
+  "protocol_name": "Zero Return Protocol - Sizing Matrix",
+  "version": "1.0",
+  "tops_recommendation_matrix": [
+    {
+      "min_height_cm": 155,
+      "max_height_cm": 168,
+      "min_weight_kg": 48,
+      "max_weight_kg": 59,
+      "recommended_size": "S",
+      "fit_type": "Regular Fit",
+      "explanation": "Ukuran S pas di pundak dan panjang baju tidak kepanjangan untuk postur Kakak."
+    },
+    {
+      "min_height_cm": 165,
+      "max_height_cm": 174,
+      "min_weight_kg": 60,
+      "max_weight_kg": 68,
+      "recommended_size": "M",
+      "fit_type": "Comfort Relaxed Fit",
+      "explanation": "Ukuran M sangat ideal, leluasa bergerak di bagian dada dan ketiak tanpa terlihat kedodoran."
+    },
+    {
+      "min_height_cm": 170,
+      "max_height_cm": 180,
+      "min_weight_kg": 69,
+      "max_weight_kg": 79,
+      "recommended_size": "L",
+      "fit_type": "Semi-Loose Modern Fit",
+      "explanation": "Ukuran L jatuh sempurna di badan Kakak, memberikan siluet rapi dan tidak sempit saat duduk."
+    },
+    {
+      "min_height_cm": 175,
+      "max_height_cm": 188,
+      "min_weight_kg": 80,
+      "max_weight_kg": 92,
+      "recommended_size": "XL",
+      "fit_type": "Regular Fit",
+      "explanation": "Ukuran XL direkomendasikan agar lingkar dada dan lingkar perut tetap leluasa dan proporsional."
+    }
+  ],
+  "pants_recommendation_matrix": [
+    {
+      "min_weight_kg": 50,
+      "max_weight_kg": 63,
+      "recommended_waist_size": "30 (M)",
+      "explanation": "Cocok untuk lingkar pinggang 76-80 cm. Panjang celana pas semata kaki."
+    },
+    {
+      "min_weight_kg": 64,
+      "max_weight_kg": 75,
+      "recommended_waist_size": "32 (L)",
+      "explanation": "Cocok untuk lingkar pinggang 81-85 cm. Ada karet elastis tersembunyi yang menyesuaikan lingkar pinggang."
+    },
+    {
+      "min_weight_kg": 76,
+      "max_weight_kg": 88,
+      "recommended_waist_size": "34 (XL)",
+      "explanation": "Cocok untuk lingkar pinggang 86-90 cm, leluasa di bagian paha dan pinggul."
+    }
+  ]
+}

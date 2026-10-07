@@ -1,0 +1,242 @@
+{
+  "store_info": {
+    "store_id": "arunika_apparel_01",
+    "store_name": "Arunika Apparel Indonesia",
+    "brand_tagline": "Modern Streetwear & Anime Capsule Edition",
+    "origin_city": "Surabaya",
+    "currency": "IDR"
+  },
+  "products": [
+    {
+      "product_id": "PROD-ANIME-001",
+      "category": "Anime Collab Series",
+      "name": "Arunika x Jujutsu Kaisen: 'Limitless Satoru' Heavyweight Boxy Tee",
+      "slug": "jujutsu-kaisen-limitless-tee",
+      "base_price": 169000,
+      "material": "100% Heavy Cotton 16s (240 GSM) Vintage Washed (Tebal, adem, jahitan rantai kokoh)",
+      "weight_grams": 300,
+      "description": "Kaos edisi kolaborasi resmi bertema Gojo Satoru dengan potongan Boxy Cut streetwear kekinian. Grafis discharge lembut tidak kaku, aksen kanji 'Muryokusho' minimalis di punggung atas.",
+      "variants": [
+        {
+          "sku_id": "JJK-WSH-M",
+          "color": "Vintage Washed Black",
+          "size": "M",
+          "stock": 7,
+          "price": 169000
+        },
+        {
+          "sku_id": "JJK-WSH-L",
+          "color": "Vintage Washed Black",
+          "size": "L",
+          "stock": 4,
+          "price": 169000
+        },
+        {
+          "sku_id": "JJK-WSH-XL",
+          "color": "Vintage Washed Black",
+          "size": "XL",
+          "stock": 2,
+          "price": 169000
+        },
+        {
+          "sku_id": "JJK-OWH-M",
+          "color": "Cloud White",
+          "size": "M",
+          "stock": 9,
+          "price": 169000
+        },
+        {
+          "sku_id": "JJK-OWH-L",
+          "color": "Cloud White",
+          "size": "L",
+          "stock": 5,
+          "price": 169000
+        }
+      ],
+      "size_chart": {
+        "M": { "chest_width_cm": 56, "body_length_cm": 70, "sleeve_length_cm": 24 },
+        "L": { "chest_width_cm": 59, "body_length_cm": 73, "sleeve_length_cm": 25 },
+        "XL": { "chest_width_cm": 62, "body_length_cm": 75, "sleeve_length_cm": 26 }
+      }
+    },
+    {
+      "product_id": "PROD-ANIME-002",
+      "category": "Anime Collab Series",
+      "name": "Arunika x Attack on Titan: 'Wings of Freedom' Minimalist Oxford Overshirt",
+      "slug": "aot-wings-of-freedom-oxford",
+      "base_price": 219000,
+      "material": "100% Premium Cotton Oxford 40s (Bahan tebal bertekstur, tidak mudah kusut)",
+      "weight_grams": 350,
+      "description": "Kemeja oxford lengan panjang edisi Scout Regiment dengan bordir mikro 'Wings of Freedom' elegan di saku kiri dada, kancing grafir logo, dan aksen label tenun di keliman bawah. Sangat rapi untuk kuliah atau ngantor.",
+      "variants": [
+        {
+          "sku_id": "AOT-OLV-M",
+          "color": "Military Olive Green",
+          "size": "M",
+          "stock": 6,
+          "price": 219000
+        },
+        {
+          "sku_id": "AOT-OLV-L",
+          "color": "Military Olive Green",
+          "size": "L",
+          "stock": 3,
+          "price": 219000
+        },
+        {
+          "sku_id": "AOT-BLK-M",
+          "color": "Stealth Black",
+          "size": "M",
+          "stock": 8,
+          "price": 219000
+        },
+        {
+          "sku_id": "AOT-BLK-L",
+          "color": "Stealth Black",
+          "size": "L",
+          "stock": 4,
+          "price": 219000
+        },
+        {
+          "sku_id": "AOT-BLK-XL",
+          "color": "Stealth Black",
+          "size": "XL",
+          "stock": 2,
+          "price": 219000
+        }
+      ],
+      "size_chart": {
+        "M": { "chest_width_cm": 54, "body_length_cm": 72, "sleeve_length_cm": 61 },
+        "L": { "chest_width_cm": 57, "body_length_cm": 74, "sleeve_length_cm": 62 },
+        "XL": { "chest_width_cm": 60, "body_length_cm": 76, "sleeve_length_cm": 63 }
+      }
+    },
+    {
+      "product_id": "PROD-ANIME-003",
+      "category": "Anime Collab Series",
+      "name": "Arunika x One Piece: 'Sun God Nika' French Linen Retro Shirt",
+      "slug": "one-piece-sun-god-linen",
+      "base_price": 229000,
+      "material": "French Linen & Organic Cotton Blend (Ekstra sejuk, breathable, berkarakter santai)",
+      "weight_grams": 260,
+      "description": "Kemeja linen berkerah cuban camp-collar bernuansa petualangan pulau Egghead. Sketsa siluet Gear 5 Sun God minimalis tersembunyi di punggung, cocok banget untuk holiday & outfit santai.",
+      "variants": [
+        {
+          "sku_id": "OP-BWT-M",
+          "color": "Broken White",
+          "size": "M",
+          "stock": 5,
+          "price": 229000
+        },
+        {
+          "sku_id": "OP-BWT-L",
+          "color": "Broken White",
+          "size": "L",
+          "stock": 3,
+          "price": 229000
+        },
+        {
+          "sku_id": "OP-SKY-M",
+          "color": "All Blue Horizon",
+          "size": "M",
+          "stock": 6,
+          "price": 229000
+        },
+        {
+          "sku_id": "OP-SKY-L",
+          "color": "All Blue Horizon",
+          "size": "L",
+          "stock": 4,
+          "price": 229000
+        }
+      ],
+      "size_chart": {
+        "M": { "chest_width_cm": 55, "body_length_cm": 71, "sleeve_length_cm": 24 },
+        "L": { "chest_width_cm": 58, "body_length_cm": 73, "sleeve_length_cm": 25 },
+        "XL": { "chest_width_cm": 61, "body_length_cm": 75, "sleeve_length_cm": 26 }
+      }
+    },
+    {
+      "product_id": "PROD-ANIME-004",
+      "category": "Anime Collab Series",
+      "name": "Arunika x Chainsaw Man: 'Public Safety' Relaxed Chino Ankle Pants",
+      "slug": "csm-public-safety-chino",
+      "base_price": 239000,
+      "material": "Cotton Twill Stretch 2-Way (Tangguh, elastis, nyaman duduk seharian)",
+      "weight_grams": 460,
+      "description": "Celana chino ankle-cut rapi ala seragam Public Safety Division Devil Hunter. Dilengkapi karet tersembunyi di pinggang dan bordir mini Pochita di saku koin kanan.",
+      "variants": [
+        {
+          "sku_id": "CSM-BLK-30",
+          "color": "Tokyo Shadow Black",
+          "size": "30 (M)",
+          "stock": 8,
+          "price": 239000
+        },
+        {
+          "sku_id": "CSM-BLK-32",
+          "color": "Tokyo Shadow Black",
+          "size": "32 (L)",
+          "stock": 5,
+          "price": 239000
+        },
+        {
+          "sku_id": "CSM-GRY-30",
+          "color": "Concrete Grey",
+          "size": "30 (M)",
+          "stock": 6,
+          "price": 239000
+        },
+        {
+          "sku_id": "CSM-GRY-32",
+          "color": "Concrete Grey",
+          "size": "32 (L)",
+          "stock": 3,
+          "price": 239000
+        }
+      ],
+      "size_chart": {
+        "30 (M)": { "waist_cm": 78, "length_cm": 92, "thigh_cm": 58 },
+        "32 (L)": { "waist_cm": 83, "length_cm": 94, "thigh_cm": 60 },
+        "34 (XL)": { "waist_cm": 88, "length_cm": 96, "thigh_cm": 62 }
+      }
+    },
+    {
+      "product_id": "PROD-ESSENTIAL-001",
+      "category": "Essential Basic Series",
+      "name": "Kemeja Katun Oxford Basic Long Sleeve",
+      "slug": "oxford-basic-long-sleeve",
+      "base_price": 179000,
+      "material": "100% Cotton Oxford 40s (Adem, berserat halus, tidak terawang)",
+      "weight_grams": 300,
+      "description": "Kemeja oxford polos formal-kasual untuk outfit harian ngantor atau hangout santai.",
+      "variants": [
+        {
+          "sku_id": "OXF-WHT-M",
+          "color": "Putih Bersih",
+          "size": "M",
+          "stock": 10,
+          "price": 179000
+        },
+        {
+          "sku_id": "OXF-WHT-L",
+          "color": "Putih Bersih",
+          "size": "L",
+          "stock": 6,
+          "price": 179000
+        },
+        {
+          "sku_id": "OXF-SGE-L",
+          "color": "Sage Green",
+          "size": "L",
+          "stock": 4,
+          "price": 179000
+        }
+      ],
+      "size_chart": {
+        "M": { "chest_width_cm": 53, "body_length_cm": 72, "sleeve_length_cm": 61 },
+        "L": { "chest_width_cm": 56, "body_length_cm": 74, "sleeve_length_cm": 62 }
+      }
+    }
+  ]
+}

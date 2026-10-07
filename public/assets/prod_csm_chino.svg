@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="clothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="pochitaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Clean Minimalist Studio Background -->
+  <rect width="800" height="800" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Studio Grid -->
+  <circle cx="400" cy="400" r="320" fill="none" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 6" opacity="0.4"/>
+
+  <!-- Chino Silhouette -->
+  <g filter="url(#softShadow)" transform="translate(0, 10)">
+    <!-- Waistband -->
+    <path d="M 270 190 Q 400 205 530 190 L 536 240 Q 400 255 264 240 Z" fill="url(#clothGrad)"/>
+    
+    <!-- Left & Right Legs -->
+    <path d="M 264 240 
+             L 282 660 
+             Q 335 665 375 660 
+             L 392 370 
+             L 408 370 
+             L 425 660 
+             Q 465 665 518 660 
+             L 536 240 
+             Q 400 255 264 240 Z" 
+          fill="url(#clothGrad)"/>
+
+    <!-- Subtle Stitching Lines -->
+    <path d="M 285 240 L 302 650" stroke="#334155" stroke-width="2" stroke-dasharray="3 3"/>
+    <path d="M 515 240 L 498 650" stroke="#334155" stroke-width="2" stroke-dasharray="3 3"/>
+    <path d="M 400 250 L 400 370" stroke="#334155" stroke-width="2.5"/>
+
+    <!-- Left Pocket Slit -->
+    <line x1="285" y1="260" x2="330" y2="310" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Right Pocket Slit & Mini Pochita Tag -->
+    <line x1="515" y1="260" x2="470" y2="310" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Pochita Mini Embroidery Badge -->
+    <rect x="480" y="278" width="22" height="14" rx="3" fill="url(#pochitaGrad)"/>
+    <circle cx="487" cy="285" r="2.5" fill="#ffffff"/>
+    <circle cx="488" cy="285" r="1.2" fill="#000000"/>
+    <!-- Chainsaw pull loop -->
+    <path d="M 478 285 Q 474 285 474 282 Q 474 279 478 279" fill="none" stroke="#ea580c" stroke-width="2"/>
+
+    <!-- Turn-up Ankle Cuffs (Streetwear Detail) -->
+    <rect x="280" y="640" width="97" height="24" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect x="423" y="640" width="97" height="24" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  </g>
+
+  <!-- Editorial Text Accents -->
+  <text x="400" y="730" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="700" fill="#64748b" letter-spacing="3">
+    ARUNIKA × CHAINSAW MAN • PUBLIC SAFETY CHINO
+  </text>
+  <text x="400" y="750" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" fill="#94a3b8" letter-spacing="1.5">
+    2-WAY STRETCH TWILL • TOKYO SHADOW BLACK
+  </text>
+</svg>

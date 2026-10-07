@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@1,500;1,600;1,700&display=swap');
+
+:root {
+  --bg-page: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-soft: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --border-light: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --brand-blue: #2563eb;
+  --brand-blue-hover: #1d4ed8;
+  --brand-blue-light: #eff6ff;
+  --brand-indigo: #4f46e5;
+  --brand-emerald: #10b981;
+  --brand-gold: #f59e0b;
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.02);
+  --shadow-hover: 0 20px 35px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page Wrapper Container */
+.page-container {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 24px 24px 80px;
+}
+
+/* Navbar - Dentiva Inspired */
+.navbar-wrap {
+  margin-bottom: 24px;
+}
+
+.navbar {
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 100px;
+  padding: 12px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.logo-icon-pill {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: #ffffff;
+}
+
+.nav-cta-btn {
+  background: var(--brand-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-cta-btn:hover {
+  background: var(--brand-blue-hover);
+  transform: translateY(-1px);
+}
+
+/* Hero Section (Bento Grid Layout) */
+.hero-bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Left Hero Card */
+.hero-card-left {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand-blue-light);
+  color: var(--brand-blue);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.hero-title {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.hero-title em {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--brand-blue);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.btn-primary-pill {
+  background: var(--brand-blue);
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary-pill:hover {
+  background: var(--brand-blue-hover);
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-outline-pill {
+  background: #ffffff;
+  color: var(--text-primary);
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-outline-pill:hover {
+  background: var(--bg-surface-soft);
+  border-color: #cbd5e1;
+}
+
+.social-proof-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar-stack {
+  display: flex;
+}
+
+.avatar-stack img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  margin-left: -10px;
+  object-fit: cover;
+}
+
+.avatar-stack img:first-child {
+  margin-left: 0;
+}
+
+.social-proof-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Right Hero Card (Large Photo Card) */
+.hero-card-right {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+}
+
+.hero-card-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-card-right:hover img {
+  transform: scale(1.03);
+}
+
+.hero-floating-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hero-tag-text h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hero-tag-text p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.hero-tag-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+}
+
+/* Middle Statement Banner Card */
+.statement-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 56px 48px;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+
+.statement-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  max-width: 720px;
+  margin: 0 auto 16px;
+  line-height: 1.25;
+}
+
+.statement-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 28px;
+}
+
+/* 3-Cards Feature Grid */
+.features-trio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.feature-trio-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-trio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.feature-circle-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--brand-blue-light);
+  color: var(--brand-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.feature-circle-icon svg {
+  stroke: var(--brand-blue);
+  width: 24px;
+  height: 24px;
+}
+
+.feature-trio-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.feature-trio-card p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Product Catalog Grid Section */
+.catalog-section {
+  margin-bottom: 48px;
+}
+
+.section-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+.section-heading {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.section-subtext {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.product-bento-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.product-thumb-wrap {
+  width: 100%;
+  height: 280px;
+  background: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-bento-card:hover .product-thumb-wrap img {
+  transform: scale(1.05);
+}
+
+.product-badge-pill {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.product-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.product-material-tag {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.product-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.product-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+}
+
+.btn-card-ask {
+  background: var(--brand-blue-light);
+  color: var(--brand-blue);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-card-ask:hover {
+  background: var(--brand-blue);
+  color: #ffffff;
+}
+
+/* Lower Split Bento Section (Dentiva Inspired) */
+.lower-bento-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.lower-image-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  min-height: 440px;
+}
+
+.lower-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lower-info-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lower-info-card h3 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.trust-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.trust-step-item {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.trust-step-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.step-num {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+}
+
+.step-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .hero-bento-grid, .lower-bento-split {
+    grid-template-columns: 1fr;
+  }
+  .features-trio-grid {
+    grid-template-columns: 1fr;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  .navbar .nav-links {
+    display: none;
+  }
+  .hero-card-left {
+    padding: 36px 24px;
+  }
+  .statement-card {
+    padding: 36px 20px;
+  }
+  .statement-title {
+    font-size: 1.8rem;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+}
