@@ -86,17 +86,38 @@ closify-ai/
 
 ---
 
-## Deploy ke Railway / Render
+## Panduan Deploy ke Render (Gratis)
 
-1. Fork repo ini
-2. Tambahkan **environment variable** `GEMINI_API_KEY` di dashboard platform
-3. Railway auto-detect `Procfile` — langsung deploy!
+Ada 2 cara mudah deploy ke Render:
 
-```
-web: python -m uvicorn app:app --app-dir backend --host 0.0.0.0 --port $PORT
-```
+### Cara 1: Menggunakan Render Blueprint (Otomatis via `render.yaml`)
+1. Buka dashboard [Render.com](https://dashboard.render.com/)
+2. Klik tombol **Blueprints** → **New Blueprint Instance**
+3. Hubungkan repositori GitHub: `MuhammadHabibna/closify-ai`
+4. Masukkan environment variable:
+   - `GEMINI_API_KEY`: *(API key Google AI Studio kamu)*
+5. Klik **Apply** — Render akan otomatis membaca `render.yaml` dan menjalankan build!
 
 ---
+
+### Cara 2: Manual Web Service di Render
+1. Buka [dashboard.render.com](https://dashboard.render.com/) → Klik **New +** → Pilih **Web Service**
+2. Hubungkan repository GitHub: `MuhammadHabibna/closify-ai`
+3. Isi konfigurasi berikut:
+   - **Name**: `closify-ai`
+   - **Region**: `Singapore (Southeast Asia)`
+   - **Branch**: `main`
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn backend.app:app --host 0.0.0.0 --port $PORT`
+   - **Instance Type**: `Free`
+4. Scroll ke bagian **Environment Variables** → Tambahkan:
+   - Key: `GEMINI_API_KEY` | Value: *(API Key kamu)*
+   - Key: `PYTHONUNBUFFERED` | Value: `1`
+5. Klik **Create Web Service**
+
+> **Catatan Free Tier Render:** Layanan akan *spin down / sleep* setelah 15 menit tidak aktif. Saat ada kunjungan pertama, cold start membutuhkan waktu ~30-50 detik.
+
 
 ## Lisensi
 
