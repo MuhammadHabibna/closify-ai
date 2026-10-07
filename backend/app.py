@@ -5,6 +5,14 @@ toko e-commerce Arunika Apparel secara terintegrasi.
 """
 
 import os
+import sys
+
+# Pastikan direktori 'backend/' ada di Python path
+# Ini diperlukan saat dijalankan dari root project (Render / Docker)
+_BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+if _BACKEND_DIR not in sys.path:
+    sys.path.insert(0, _BACKEND_DIR)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
