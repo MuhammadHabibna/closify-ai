@@ -24,6 +24,7 @@ from tools import settle_payment_simulation, INVENTORY_DATA, ACTIVE_ORDERS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC_DIR = os.path.join(BASE_DIR, "public")
+BIOLOOP_DIR = os.path.join(BASE_DIR, "bioloop")
 
 app = FastAPI(
     title="Closify AI - Autonomous Sales Agent API",
@@ -88,6 +89,7 @@ async def get_rate_limit_status():
 
 
 # Mount frontend static files
+app.mount("/bioloop", StaticFiles(directory=BIOLOOP_DIR, html=True), name="bioloop")
 app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="static")
 
 

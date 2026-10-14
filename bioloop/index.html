@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BioLoop — Smart AIoT Waste-to-Value Platform</title>
+  <meta name="description" content="Sistem Terintegrasi Konversi Food Waste Menjadi Biogas dan Biofertilizer Berbasis AIoT untuk Mendukung Circular Economy" />
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Bar & Presentation Controller -->
+  <header class="top-nav-bar">
+    <div class="brand-group">
+      <div class="brand-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path>
+          <path d="M11 19h8.2a1.8 1.8 0 0 0 1.57-.88 1.78 1.78 0 0 0 .01-1.78L17 9.5"></path>
+          <path d="M14 9.5V5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4.5"></path>
+          <circle cx="12" cy="14" r="3"></circle>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">BioLoop</span>
+        <span class="brand-sub">Smart AIoT Waste-to-Value Platform</span>
+      </div>
+    </div>
+
+    <!-- Presentation Control Mode: Mobile Phone vs Expanded Dashboard -->
+    <div class="mode-switch-group">
+      <button id="view-mode-phone" class="view-pill active" title="Tampilan Prototipe Mobile">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <span>Mobile Prototype</span>
+      </button>
+      <button id="view-mode-desktop" class="view-pill" title="Tampilan Dashboard Layar Penuh">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span>Full Dashboard</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Stage Presentation Wrapper -->
+  <main class="main-stage" id="stage-wrapper">
+    
+    <!-- Phone Mockup Frame Container -->
+    <div class="phone-shell" id="phone-container">
+      <div class="phone-notch">
+        <div class="notch-camera"></div>
+        <div class="notch-speaker"></div>
+      </div>
+      
+      <div class="phone-screen">
+        
+        <!-- Status Bar -->
+        <div class="screen-statusbar">
+          <span class="clock" id="live-clock">09:41</span>
+          <div class="status-chips">
+            <span class="ai-chip"><span class="ai-dot"></span> AIoT Active</span>
+            <div class="status-battery">
+              <span class="battery-bar"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrollable Screens Area -->
+        <div class="screen-viewport">
+
+          <!-- ================= SCREEN 1: DASHBOARD ================= -->
+          <section class="screen active" id="screen-dashboard" data-screen="dashboard">
+            <div class="app-header">
+              <div>
+                <span class="header-pre">Sistem Terintegrasi v2.4</span>
+                <h1 class="header-title">BioLoop Ecosystem</h1>
+              </div>
+              <button class="header-icon-btn" onclick="navigateTo('notifikasi')" title="Notifikasi Sistem" aria-label="Notifikasi">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="badge" id="notif-badge">3</span>
+              </button>
+            </div>
+
+            <div class="screen-content">
+              <!-- System Status Hero Banner -->
+              <div class="system-status-card" onclick="navigateTo('monitoring')">
+                <div class="status-glow"></div>
+                <div class="status-header">
+                  <div class="status-indicator">
+                    <span class="pulse-ring"></span>
+                    <span class="pulse-core"></span>
+                    <span class="status-txt">SISTEM NORMAL &bull; ONLINE</span>
+                  </div>
+                  <span class="score-badge">Health 98%</span>
+                </div>
+                <div class="status-body">
+                  <h3>Unit Bioreaktor #01 (Kantin & Resto)</h3>
+                  <p>Fermentasi anaerobik stabil. Ketuk untuk inspeksi telemetri sensor &rarr;</p>
+                </div>
+              </div>
+
+              <!-- Waste Intake Counter Today -->
+              <div class="intake-metric-card">
+                <div class="intake-left">
+                  <div class="metric-icon-wrap waste-bg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                  </div>
+                  <div>
+                    <span class="card-caption">Total Food Waste Hari Ini</span>
+                    <div class="metric-value-row">
+                      <span class="metric-num" id="val-waste-intake">24.8</span>
+                      <span class="metric-unit">Kg</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="trend-pill positive">+15.2% vs kemarin</div>
+              </div>
+
+              <!-- Interactive Circular Flow Mini Visualizer -->
+              <div class="circular-workflow-card" onclick="navigateTo('monitoring')">
+                <div class="card-title-row">
+                  <h4>Alur Konversi Sirkular</h4>
+                  <span class="interactive-tag">Live Process</span>
+                </div>
+                <div class="flow-steps-diagram">
+                  <div class="step-node active" title="Pencacahan Biomassa">
+                    <div class="node-icon">✂️</div>
+                    <span>Shredder</span>
+                  </div>
+                  <div class="flow-arrow">&rarr;</div>
+                  <div class="step-node active pulse" title="Fermentasi Anaerob">
+                    <div class="node-icon">🔄</div>
+                    <span>Digester</span>
+                  </div>
+                  <div class="flow-arrow">&rarr;</div>
+                  <div class="step-node active" title="Pemisahan Digestate & Gas">
+                    <div class="node-icon">⚡</div>
+                    <span>Separator</span>
+                  </div>
+                  <div class="flow-arrow">&rarr;</div>
+                  <div class="step-node-outputs">
+                    <span class="pill-out p-gas">🔥 Gas</span>
+                    <span class="pill-out p-poc">💧 POC</span>
+                    <span class="pill-out p-pop">🌱 POP</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Ringkasan Output Produksi (3 Kartu Utama) -->
+              <div class="section-title-bar">
+                <h3>Kapasitas &amp; Hasil Produksi</h3>
+                <a onclick="navigateTo('produksi')" class="link-more">Lihat Detail &rarr;</a>
+              </div>
+
+              <div class="output-overview-grid">
+                <!-- Biogas -->
+                <div class="output-item-card" onclick="openOutputTab('biogas')">
+                  <div class="output-card-top">
+                    <span class="output-emoji energy-bg">🔥</span>
+                    <span class="output-badge alert-amber">Hampir Penuh</span>
+                  </div>
+                  <div class="output-pct" id="dash-pct-biogas">85%</div>
+                  <span class="output-label">Biogas Metana</span>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-fill fill-amber" id="dash-bar-biogas" style="width: 85%;"></div>
+                  </div>
+                  <span class="output-qty-sub" id="dash-qty-biogas">5.2 m³ &bull; Setara 2.4 LPG</span>
+                </div>
+
+                <!-- POC -->
+                <div class="output-item-card" onclick="openOutputTab('poc')">
+                  <div class="output-card-top">
+                    <span class="output-emoji water-bg">💧</span>
+                    <span class="output-badge alert-blue">Siap Panen</span>
+                  </div>
+                  <div class="output-pct" id="dash-pct-poc">72%</div>
+                  <span class="output-label">Pupuk Cair (POC)</span>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-fill fill-blue" id="dash-bar-poc" style="width: 72%;"></div>
+                  </div>
+                  <span class="output-qty-sub" id="dash-qty-poc">18.0 Liter &bull; Siap Kuras</span>
+                </div>
+
+                <!-- POP -->
+                <div class="output-item-card" onclick="openOutputTab('pop')">
+                  <div class="output-card-top">
+                    <span class="output-emoji earth-bg">🌱</span>
+                    <span class="output-badge alert-brown">Fermentasi</span>
+                  </div>
+                  <div class="output-pct" id="dash-pct-pop">45%</div>
+                  <span class="output-label">Pupuk Padat (POP)</span>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-fill fill-brown" id="dash-bar-pop" style="width: 45%;"></div>
+                  </div>
+                  <span class="output-qty-sub" id="dash-qty-pop">10.2 Kg &bull; Pengeringan</span>
+                </div>
+              </div>
+
+              <!-- AI Predictive Alert Strip -->
+              <div class="ai-strip-card" onclick="navigateTo('maintenance')">
+                <div class="ai-strip-icon">🤖</div>
+                <div class="ai-strip-content">
+                  <span class="ai-strip-tag">AI Predictive Insight</span>
+                  <p class="ai-strip-msg" id="dash-ai-strip-text">Kondisi pH stabil (7.1). Media bio-scrubber H2S tersisa 4 hari sebelum perlu regenerasi.</p>
+                </div>
+                <span class="chev-right">&rsaquo;</span>
+              </div>
+
+              <!-- Quick Action Grid -->
+              <div class="section-title-bar">
+                <h3>Navigasi Cepat</h3>
+              </div>
+              <div class="quick-nav-grid">
+                <button class="quick-btn" onclick="navigateTo('monitoring')">
+                  <span class="q-icon">📈</span>
+                  <span class="q-txt">Sensor IoT</span>
+                </button>
+                <button class="quick-btn" onclick="navigateTo('produksi')">
+                  <span class="q-icon">🧪</span>
+                  <span class="q-txt">Panen Output</span>
+                </button>
+                <button class="quick-btn" onclick="navigateTo('maintenance')">
+                  <span class="q-icon">🛡️</span>
+                  <span class="q-txt">Diagnosa AI</span>
+                </button>
+                <button class="quick-btn" onclick="navigateTo('dampak')">
+                  <span class="q-icon">🌍</span>
+                  <span class="q-txt">Dampak SDGs</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= SCREEN 2: MONITORING SENSOR ================= -->
+          <section class="screen" id="screen-monitoring" data-screen="monitoring">
+            <div class="app-header">
+              <button class="header-icon-btn" onclick="navigateTo('dashboard')" aria-label="Kembali">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              <div class="header-center">
+                <h1 class="header-title">Monitoring Sensor</h1>
+                <span class="header-pre">Telemetri Real-Time Digester</span>
+              </div>
+              <button class="header-icon-btn" onclick="refreshSensors()" title="Refresh Sensor">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              </button>
+            </div>
+
+            <div class="screen-content">
+              <!-- Sensor 1: Suhu Digester -->
+              <div class="sensor-metric-card">
+                <div class="sensor-top-row">
+                  <div class="sensor-info-left">
+                    <span class="sensor-glyph red-bg">🌡️</span>
+                    <div>
+                      <span class="sensor-name">Suhu Bioreaktor</span>
+                      <span class="sensor-range">Ideal: 35°C &ndash; 38°C (Mesofilik)</span>
+                    </div>
+                  </div>
+                  <div class="sensor-live-val" id="val-temp">37.2 <span class="unit">°C</span></div>
+                </div>
+                <div class="sensor-gauge-track">
+                  <div class="sensor-gauge-bar fill-red" id="bar-temp" style="width: 62%;"></div>
+                </div>
+                <div class="gauge-limits">
+                  <span>0°C</span>
+                  <span class="opt-label">Zona Mesofilik</span>
+                  <span>60°C</span>
+                </div>
+              </div>
+
+              <!-- Sensor 2: Derajat Keasaman pH -->
+              <div class="sensor-metric-card">
+                <div class="sensor-top-row">
+                  <div class="sensor-info-left">
+                    <span class="sensor-glyph blue-bg">🧫</span>
+                    <div>
+                      <span class="sensor-name">Derajat Keasaman (pH)</span>
+                      <span class="sensor-range">Ideal: 6.8 &ndash; 7.4 (Netral Seimbang)</span>
+                    </div>
+                  </div>
+                  <div class="sensor-live-val" id="val-ph">7.1 <span class="unit">pH</span></div>
+                </div>
+                <div class="sensor-gauge-track">
+                  <div class="sensor-gauge-bar fill-blue" id="bar-ph" style="width: 51%;"></div>
+                </div>
+                <div class="gauge-limits">
+                  <span>Asam (0)</span>
+                  <span class="opt-label">Netral Metanogen</span>
+                  <span>Basa (14)</span>
+                </div>
+              </div>
+
+              <!-- Sensor 3: Kelembaban & Kadar Air -->
+              <div class="sensor-metric-card">
+                <div class="sensor-top-row">
+                  <div class="sensor-info-left">
+                    <span class="sensor-glyph green-bg">💧</span>
+                    <div>
+                      <span class="sensor-name">Kelembaban Slurry</span>
+                      <span class="sensor-range">Ideal: 75% &ndash; 85% untuk fluiditas</span>
+                    </div>
+                  </div>
+                  <div class="sensor-live-val" id="val-moisture">78 <span class="unit">%</span></div>
+                </div>
+                <div class="sensor-gauge-track">
+                  <div class="sensor-gauge-bar fill-green" id="bar-moisture" style="width: 78%;"></div>
+                </div>
+                <div class="gauge-limits">
+                  <span>0% Kering</span>
+                  <span class="opt-label">Fluiditas Optimal</span>
+                  <span>100% Cair</span>
+                </div>
+              </div>
+
+              <!-- Sensor 4: Tekanan & Kemurnian Gas Metana -->
+              <div class="sensor-metric-card">
+                <div class="sensor-top-row">
+                  <div class="sensor-info-left">
+                    <span class="sensor-glyph amber-bg">🫧</span>
+                    <div>
+                      <span class="sensor-name">Tekanan Gas &amp; Kadar CH4</span>
+                      <span class="sensor-range">Maks Aman: 2.5 Bar &bull; CH4: &gt;60%</span>
+                    </div>
+                  </div>
+                  <div class="sensor-live-val" id="val-pressure">1.8 <span class="unit">Bar</span></div>
+                </div>
+                <div class="sensor-gauge-track">
+                  <div class="sensor-gauge-bar fill-amber" id="bar-pressure" style="width: 72%;"></div>
+                </div>
+                <div class="gauge-limits">
+                  <span>0 Bar</span>
+                  <span class="opt-label">Kadar Metana: 68% (Api Biru)</span>
+                  <span>2.5 Bar</span>
+                </div>
+              </div>
+
+              <!-- Status Hardware & Aktuator Otomatis -->
+              <div class="section-title-bar">
+                <h3>Status Hardware &amp; Aktuator</h3>
+              </div>
+              <div class="hardware-status-list">
+                <div class="hardware-item">
+                  <span class="hw-dot active"></span>
+                  <div class="hw-info">
+                    <span class="hw-title">AI Vision Contaminant Sorter</span>
+                    <span class="hw-sub">Mendeteksi anorganik (plastik/logam)</span>
+                  </div>
+                  <span class="hw-status-badge">Aktif 100%</span>
+                </div>
+                <div class="hardware-item">
+                  <span class="hw-dot active"></span>
+                  <div class="hw-info">
+                    <span class="hw-title">Motor Agitator (Pengaduk Berkala)</span>
+                    <span class="hw-sub">Pencegah kerak biogas (Cycle 15m)</span>
+                  </div>
+                  <span class="hw-status-badge">Standby</span>
+                </div>
+                <div class="hardware-item">
+                  <span class="hw-dot active"></span>
+                  <div class="hw-info">
+                    <span class="hw-title">Bio-Scrubber Filter H2S</span>
+                    <span class="hw-sub">Penyerap bau &amp; korosi asam</span>
+                  </div>
+                  <span class="hw-status-badge">84% Bersih</span>
+                </div>
+                <div class="hardware-item">
+                  <span class="hw-dot active"></span>
+                  <div class="hw-info">
+                    <span class="hw-title">Safety Relief Valve</span>
+                    <span class="hw-sub">Katup pengaman tekanan lebih</span>
+                  </div>
+                  <span class="hw-status-badge">Normal</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= SCREEN 3: PRODUKSI & PANEN ================= -->
+          <section class="screen" id="screen-produksi" data-screen="produksi">
+            <div class="app-header">
+              <button class="header-icon-btn" onclick="navigateTo('dashboard')" aria-label="Kembali">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              <div class="header-center">
+                <h1 class="header-title">Hasil Produksi &amp; Panen</h1>
+                <span class="header-pre">Valuasi 3 Produk Sirkular</span>
+              </div>
+              <button class="header-icon-btn" onclick="showToast('Mengekspor laporan neraca biomassa...')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </button>
+            </div>
+
+            <div class="screen-content">
+              <!-- Product 1: Biogas -->
+              <div class="production-detail-card" id="card-prod-biogas">
+                <div class="prod-header-row">
+                  <div class="prod-icon-wrap energy-bg">🔥</div>
+                  <div class="prod-text-info">
+                    <h4>Biogas Metana (CH4 Murni)</h4>
+                    <span class="prod-subtext">Energi Memasak &amp; Pemanas Terbarukan</span>
+                  </div>
+                  <div class="prod-pct-large" id="prod-biogas-pct">85%</div>
+                </div>
+                <div class="progress-bar-wrap big">
+                  <div class="progress-fill fill-amber" id="prod-biogas-bar" style="width: 85%;"></div>
+                </div>
+                <div class="prod-stats-row">
+                  <div>
+                    <span class="stat-lbl">Volume Tersimpan</span>
+                    <span class="stat-num" id="prod-biogas-vol">5.2 m³</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Ekuivalen LPG</span>
+                    <span class="stat-num" id="prod-biogas-lpg">2.4 Tabung 3Kg</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Nilai Penghematan</span>
+                    <span class="stat-num" id="prod-biogas-val">Rp 54.000</span>
+                  </div>
+                </div>
+                <button class="action-btn btn-amber" onclick="simulateHarvestBiogas()">
+                  <span>Buka Valve Salurkan ke Kompor</span> &rarr;
+                </button>
+              </div>
+
+              <!-- Product 2: POC -->
+              <div class="production-detail-card" id="card-prod-poc">
+                <div class="prod-header-row">
+                  <div class="prod-icon-wrap water-bg">💧</div>
+                  <div class="prod-text-info">
+                    <h4>Pupuk Organik Cair (POC)</h4>
+                    <span class="prod-subtext">Nutrisi Cair Tanaman &bull; NPK 1.8-1.2-2.1</span>
+                  </div>
+                  <div class="prod-pct-large" id="prod-poc-pct">72%</div>
+                </div>
+                <div class="progress-bar-wrap big">
+                  <div class="progress-fill fill-blue" id="prod-poc-bar" style="width: 72%;"></div>
+                </div>
+                <div class="prod-stats-row">
+                  <div>
+                    <span class="stat-lbl">Volume Tangki</span>
+                    <span class="stat-num" id="prod-poc-vol">18.0 Liter</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Status Tangki</span>
+                    <span class="stat-num text-blue" id="prod-poc-status">Siap Panen</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Estimasi Nilai Jual</span>
+                    <span class="stat-num" id="prod-poc-val">Rp 270.000</span>
+                  </div>
+                </div>
+                <button class="action-btn btn-blue" onclick="simulateHarvestPOC()">
+                  <span>Kuras Melalui Outlet Depan</span> &rarr;
+                </button>
+              </div>
+
+              <!-- Product 3: POP -->
+              <div class="production-detail-card" id="card-prod-pop">
+                <div class="prod-header-row">
+                  <div class="prod-icon-wrap earth-bg">🌱</div>
+                  <div class="prod-text-info">
+                    <h4>Pupuk Organik Padat (POP)</h4>
+                    <span class="prod-subtext">Soil Conditioner &bull; Rasio C/N 15:1</span>
+                  </div>
+                  <div class="prod-pct-large" id="prod-pop-pct">45%</div>
+                </div>
+                <div class="progress-bar-wrap big">
+                  <div class="progress-fill fill-brown" id="prod-pop-bar" style="width: 45%;"></div>
+                </div>
+                <div class="prod-stats-row">
+                  <div>
+                    <span class="stat-lbl">Massa Kompos</span>
+                    <span class="stat-num" id="prod-pop-vol">10.2 Kg</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Fase Digestate</span>
+                    <span class="stat-num text-brown" id="prod-pop-status">Pengeringan</span>
+                  </div>
+                  <div>
+                    <span class="stat-lbl">Estimasi Nilai Jual</span>
+                    <span class="stat-num" id="prod-pop-val">Rp 81.600</span>
+                  </div>
+                </div>
+                <button class="action-btn btn-brown" onclick="simulateHarvestPOP()">
+                  <span>Ambil &amp; Kemas Kompos Padat</span> &rarr;
+                </button>
+              </div>
+
+              <!-- Total Economic Value Card -->
+              <div class="total-valuation-banner">
+                <div class="val-header">
+                  <span>Total Valuasi Ekonomi Batch Ini</span>
+                  <span class="val-sum" id="total-val-sum">Rp 405.600</span>
+                </div>
+                <p>Mengubah beban biaya buang sampah menjadi potensi pendapatan ekonomi sirkular riil bagi pelaku usaha.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= SCREEN 4: AI PREDICTIVE MAINTENANCE ================= -->
+          <section class="screen" id="screen-maintenance" data-screen="maintenance">
+            <div class="app-header">
+              <button class="header-icon-btn" onclick="navigateTo('dashboard')" aria-label="Kembali">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              <div class="header-center">
+                <h1 class="header-title">AI Maintenance</h1>
+                <span class="header-pre">Prediksi Kerusakan &amp; Resep Solusi</span>
+              </div>
+              <button class="header-icon-btn" onclick="runAiDiagnostic()" title="Jalankan Diagnosa Cepat">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+              </button>
+            </div>
+
+            <div class="screen-content">
+              <!-- AI Overall Machine Health Score -->
+              <div class="health-overview-card">
+                <div class="health-circle-wrap">
+                  <div class="circle-metric" id="ai-health-score">96</div>
+                  <span class="health-lbl">Health Index</span>
+                </div>
+                <div class="health-meta">
+                  <h4>Status: Prima &amp; Stabil</h4>
+                  <p>Model AI menganalisis 1.420 data point sensor per jam untuk mencegah kegagalan fermentasi &amp; keausan mekanis.</p>
+                  <span class="last-check">Terakhir dianalisis: 2 menit lalu</span>
+                </div>
+              </div>
+
+              <div class="section-title-bar">
+                <h3>Rekomendasi Cerdas AI</h3>
+                <span class="ai-badge-pill">Autonomous</span>
+              </div>
+
+              <!-- Recommendation Card 1: Pengasaman (Souring) -->
+              <div class="ai-recom-card" id="recom-souring">
+                <div class="recom-top">
+                  <span class="recom-tag alert-green" id="souring-tag">Kondisi Stabil</span>
+                  <span class="recom-time">AI Monitoring</span>
+                </div>
+                <h4 id="souring-title">Stabilitas Derajat Keasaman (pH)</h4>
+                <p id="souring-desc">Aktivitas bakteri metanogen dalam rasio seimbang (pH 7.1). Tidak ada risiko pengasaman (*souring*).</p>
+                <div class="recom-action-box" id="souring-action">
+                  <strong>Rekomendasi Operasional:</strong> Pertahankan variasi input sampah sayur &amp; nasi seimbang.
+                </div>
+              </div>
+
+              <!-- Recommendation Card 2: Scrubber Filter H2S -->
+              <div class="ai-recom-card">
+                <div class="recom-top">
+                  <span class="recom-tag alert-amber">Perhatian (4 Hari Lagi)</span>
+                  <span class="recom-time">Prediksi Masa Pakai</span>
+                </div>
+                <h4>Saturasi Bio-Scrubber Filter H2S</h4>
+                <p>Media spons oksida besi telah menyerap 84% kapasitas gas asam H2S. Terdeteksi peningkatan resistensi aliran mikro 0.05 Bar.</p>
+                <div class="recom-action-box">
+                  <strong>Tindakan AI:</strong> Jadwalkan pencucian atau penambahan media serbuk besi Fe2O3 dalam 4 hari untuk mencegah korosi katup kompor.
+                </div>
+              </div>
+
+              <!-- Recommendation Card 3: Shredder Motor Load -->
+              <div class="ai-recom-card">
+                <div class="recom-top">
+                  <span class="recom-tag alert-green">Beban Normal (1.2 A)</span>
+                  <span class="recom-time">Mekanikal Shredder</span>
+                </div>
+                <h4>Ketajaman Pisau Pencacah Biomassa</h4>
+                <p>Konsumsi arus motor pencacah berada dalam batas aman. Tingkat keausan pisau terestimasi baru 12% dari siklus servis.</p>
+              </div>
+
+              <!-- AI Vision Contaminant Feed Log -->
+              <div class="section-title-bar">
+                <h3>Log AI Vision Sorter</h3>
+              </div>
+              <div class="vision-log-card">
+                <div class="vision-feed-header">
+                  <span class="live-rec-dot"></span> Kamera Hopper Input (Real-Time)
+                </div>
+                <div class="vision-detected-item">
+                  <span class="log-icon">🛡️</span>
+                  <div class="log-info">
+                    <strong>Penyortiran Terakhir:</strong> Lolos 100% Organik
+                    <span class="log-detail">3.2 Kg sisa nasi &amp; sayur &bull; 0 Kontaminan</span>
+                  </div>
+                  <span class="log-time">10m lalu</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= SCREEN 5: NOTIFIKASI ================= -->
+          <section class="screen" id="screen-notifikasi" data-screen="notifikasi">
+            <div class="app-header">
+              <button class="header-icon-btn" onclick="navigateTo('dashboard')" aria-label="Kembali">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              <div class="header-center">
+                <h1 class="header-title">Pusat Notifikasi</h1>
+                <span class="header-pre">Peringatan Kapasitas &amp; Sistem</span>
+              </div>
+              <button class="header-icon-btn" onclick="markAllNotificationsRead()" title="Tandai Terbaca">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </button>
+            </div>
+
+            <div class="screen-content" id="notif-list-container">
+              <!-- Item 1 -->
+              <div class="notif-card high" onclick="openOutputTab('biogas')">
+                <div class="notif-glyph amber-bg">🔥</div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <span class="n-title">Biogas Hampir Penuh (85%)</span>
+                    <span class="n-time">3 menit lalu</span>
+                  </div>
+                  <p class="n-desc">Kapasitas penyimpanan telah mencapai 5.2 m³. Segera salurkan ke kompor atau sistem penampungan cadangan.</p>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="notif-card medium" onclick="openOutputTab('poc')">
+                <div class="notif-glyph blue-bg">💧</div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <span class="n-title">Pupuk Cair (POC) Siap Dipanen</span>
+                    <span class="n-time">15 menit lalu</span>
+                  </div>
+                  <p class="n-desc">Tangki penampungan POC mencapai 18.0 Liter. Silakan kuras melalui outlet untuk pengemasan jerigen.</p>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="notif-card info" onclick="navigateTo('maintenance')">
+                <div class="notif-glyph purple-bg">🤖</div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <span class="n-title">Pengingat Regenerasi Filter H2S</span>
+                    <span class="n-time">2 jam lalu</span>
+                  </div>
+                  <p class="n-desc">AI memprediksi efisiensi media scrubber mendekati batas jenuh dalam 4 hari ke depan.</p>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="notif-card normal">
+                <div class="notif-glyph green-bg">🔄</div>
+                <div class="notif-body">
+                  <div class="notif-title-row">
+                    <span class="n-title">Siklus Agitator Otomatis Selesai</span>
+                    <span class="n-time">3 jam lalu</span>
+                  </div>
+                  <p class="n-desc">Pencampuran substrat selama 3 menit berhasil mencegah pembentukan lapisan kerak di permukaan fermentor.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= SCREEN 6: DAMPAK SIRKULAR & SDGS ================= -->
+          <section class="screen" id="screen-dampak" data-screen="dampak">
+            <div class="app-header">
+              <button class="header-icon-btn" onclick="navigateTo('dashboard')" aria-label="Kembali">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
+              <div class="header-center">
+                <h1 class="header-title">Circular Economy</h1>
+                <span class="header-pre">Kontribusi Lingkungan &amp; SDGs</span>
+              </div>
+              <button class="header-icon-btn" onclick="showToast('Mengekspor laporan ESG & SDGs')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              </button>
+            </div>
+
+            <div class="screen-content">
+              <!-- Environmental Impact Banner -->
+              <div class="impact-highlight-card">
+                <span class="impact-chip">Dampak Terukur 30 Hari</span>
+                <h3>Mengubah Beban Residu Jadi Berkah Energi</h3>
+                <div class="impact-grid">
+                  <div class="impact-box">
+                    <span class="i-val" id="val-co2-saved">174.5</span>
+                    <span class="i-lbl">Kg CO2e Reduksi Emisi</span>
+                  </div>
+                  <div class="impact-box">
+                    <span class="i-val" id="val-waste-saved">496</span>
+                    <span class="i-lbl">Kg Sampah Dicegah ke TPA</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4 SDGs Alignment Cards -->
+              <div class="section-title-bar">
+                <h3>Keselarasan dengan SDGs 2030</h3>
+              </div>
+
+              <div class="sdg-card-item sdg-7">
+                <div class="sdg-num">7</div>
+                <div class="sdg-text">
+                  <h4>SDG 7: Energi Bersih &amp; Terjangkau</h4>
+                  <p>Memproduksi biogas terdesentralisasi dari sisa makanan sebagai substitusi gas LPG fosil untuk rumah makan &amp; UMKM.</p>
+                </div>
+              </div>
+
+              <div class="sdg-card-item sdg-9">
+                <div class="sdg-num">9</div>
+                <div class="sdg-text">
+                  <h4>SDG 9: Industri, Inovasi &amp; Infrastruktur</h4>
+                  <p>Mengintegrasikan sensor IoT telemetri dan AI predictive maintenance pada rekayasa sistem biodigester modern.</p>
+                </div>
+              </div>
+
+              <div class="sdg-card-item sdg-12">
+                <div class="sdg-num">12</div>
+                <div class="sdg-text">
+                  <h4>SDG 12: Konsumsi &amp; Produksi Bertanggung Jawab</h4>
+                  <p>Menutup siklus limbah makanan (*food waste circularity*) menjadi produk pupuk organik berkualitas tinggi.</p>
+                </div>
+              </div>
+
+              <div class="sdg-card-item sdg-13">
+                <div class="sdg-num">13</div>
+                <div class="sdg-text">
+                  <h4>SDG 13: Penanganan Perubahan Iklim</h4>
+                  <p>Mencegah pembusukan sampah anaerobik liar di TPA yang melepaskan gas metana berdaya rusak 28x lebih kuat dari CO2.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Bottom Tab Navigation Bar (ala UrbanBio) -->
+        <nav class="phone-bottom-nav">
+          <button class="nav-tab active" data-nav="dashboard" onclick="navigateTo('dashboard')">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Beranda</span>
+          </button>
+          <button class="nav-tab" data-nav="monitoring" onclick="navigateTo('monitoring')">
+            <span class="nav-icon">📈</span>
+            <span class="nav-label">Sensor</span>
+          </button>
+          <button class="nav-tab" data-nav="produksi" onclick="navigateTo('produksi')">
+            <span class="nav-icon">🧪</span>
+            <span class="nav-label">Output</span>
+          </button>
+          <button class="nav-tab" data-nav="maintenance" onclick="navigateTo('maintenance')">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">AI Diagnostik</span>
+          </button>
+          <button class="nav-tab" data-nav="dampak" onclick="navigateTo('dampak')">
+            <span class="nav-icon">🌍</span>
+            <span class="nav-label">SDGs</span>
+          </button>
+        </nav>
+
+        <!-- Floating Interactive Toast Feedback -->
+        <div class="toast-popup" id="toast-notif"></div>
+
+      </div>
+    </div>
+
+    <!-- Presentation Interactive Demo Controls Bar (Untuk Presentasi Juri) -->
+    <aside class="jury-control-panel">
+      <div class="panel-header">
+        <span class="panel-tag">&bull; Panel Simulasi Live untuk Juri</span>
+        <h3>Simulasikan Dinamika BioLoop</h3>
+        <p>Klik tombol di bawah ini untuk melihat reaksi sensor, level kapasitas, dan kecerdasan AI secara langsung:</p>
+      </div>
+
+      <div class="panel-btn-grid">
+        <button class="sim-btn" onclick="simTriggerAddWaste()">
+          <span class="s-icon">🗑️</span>
+          <span class="s-title">+ Input 5 Kg Sampah</span>
+          <span class="s-sub">Tambah volume &amp; telemetri</span>
+        </button>
+
+        <button class="sim-btn" onclick="simTriggerHarvestGas()">
+          <span class="s-icon">🔥</span>
+          <span class="s-title">Simulasi Panen Gas</span>
+          <span class="s-sub">Salurkan 2 m³ ke kompor</span>
+        </button>
+
+        <button class="sim-btn" onclick="simTriggerHarvestPOC()">
+          <span class="s-icon">💧</span>
+          <span class="s-title">Simulasi Kuras POC</span>
+          <span class="s-sub">Kemas 10L pupuk cair</span>
+        </button>
+
+        <button class="sim-btn alert-btn" onclick="simTriggerAcidosisAnomaly()">
+          <span class="s-icon">⚠️</span>
+          <span class="s-title">Simulasi Anomali pH (Asidosis)</span>
+          <span class="s-sub">Uji reaksi AI Maintenance</span>
+        </button>
+
+        <button class="sim-btn reset-btn" onclick="simResetAll()">
+          <span class="s-icon">🔄</span>
+          <span class="s-title">Reset Kondisi Normal</span>
+          <span class="s-sub">Kembalikan ke status 98%</span>
+        </button>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
