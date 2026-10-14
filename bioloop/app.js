@@ -364,5 +364,168 @@ function simulateHarvestBiogas() { simTriggerHarvestGas(); }
 function simulateHarvestPOC() { simTriggerHarvestPOC(); }
 function simulateHarvestPOP() { simTriggerHarvestPOP(); }
 
+// ================= INTERACTIVE ONBOARDING TUTORIAL ENGINE =================
+const onboardingSteps = [
+  {
+    stepNum: 'Langkah 1 dari 5',
+    icon: '🥑',
+    iconBg: '#EBF7DC',
+    title: 'Input & Sortir AI Vision',
+    subtitle: 'Deteksi Kontaminan Anorganik Otomatis',
+    desc: 'Limbah sisa makanan (kantin & resto) ditimbang dan dimasukkan ke hopper inlet. Kamera edge AI Vision otomatis mendeteksi dan menolak kontaminan anorganik (plastik, sendok, styrofoam) dengan akurasi 96.4% sebelum pencacahan mikro 2–4 mm.',
+    tip: '💡 <strong>Tahap Kunci:</strong> Menjamin kemurnian substrat organik agar proses fermentasi anaerobik tidak terganggu residu non-biodegradable.'
+  },
+  {
+    stepNum: 'Langkah 2 dari 5',
+    icon: '⚡',
+    iconBg: '#FCF4E4',
+    title: 'Fermentasi & Telemetri IoT',
+    subtitle: 'Digester Anaerobik Terkendali 24/7',
+    desc: 'Substrat organik masuk ke bioreaktor tertutup. Sensor multi-parameter ESP32 memantau suhu mesofilik (37.2°C), pH (7.1 netral), kelembapan, dan tekanan secara real-time. Agitator otomatis berputar berkala mencegah timbunan kerak (scum).',
+    tip: '💡 <strong>Stabilitas Reaktor:</strong> Bakteri metanogen bekerja optimal pada kondisi mesofilik 35–38°C dan pH 6.8–7.4.'
+  },
+  {
+    stepNum: 'Langkah 3 dari 5',
+    icon: '🔄',
+    iconBg: '#EAF2F9',
+    title: 'Panen 3 Produk Bernilai Tinggi',
+    subtitle: 'Biogas Murni, Pupuk POC & Pupuk POP',
+    desc: 'Konversi anaerobik menghasilkan 3 komoditas bernilai ekonomi: Biogas termurnikan (CH4 68% setara 2.4 tabung LPG), Pupuk Organik Cair (POC kaya NPK untuk fertigasi), dan Bio-kompos padat (POP) untuk rehabilitasi tanah.',
+    tip: '💡 <strong>Notifikasi Panen:</strong> Sistem otomatis memicu alarm ketika tangki penyimpanan gas atau pupuk mencapai >80% kapasitas.'
+  },
+  {
+    stepNum: 'Langkah 4 dari 5',
+    icon: '🤖',
+    iconBg: '#F3E8FF',
+    title: 'AI Predictive Maintenance',
+    subtitle: 'Proteksi Asidosis & Filter Bio-Scrubber',
+    desc: 'Algoritma machine learning BioLoop memprediksi potensi pengasaman (acidosis/souring) sebelum terjadi kegagalan reaktor. Memberikan resep presisi (misal: injeksi buffer air kapur Ca(OH)2) serta estimasi umur filter bio-scrubber H2S.',
+    tip: '💡 <strong>Zero Downtime:</strong> Mencegah kerugian matinya koloni bakteri tanpa memerlukan tes laboratorium manual.'
+  },
+  {
+    stepNum: 'Langkah 5 dari 5',
+    icon: '🚀',
+    iconBg: '#DCFCE7',
+    title: 'Simulasi Live untuk Juri',
+    subtitle: 'Eksplorasi Responsif Real-Time Platform',
+    desc: 'Di sisi kanan layar tersedia panel simulasi live untuk demonstrasi kepada Dewan Juri: Uji Skenario Asidosis (pH drop), Simulasi Panen Biogas, Panen Pupuk, hingga Tambah Timbulan Sampah untuk menguji respon adaptif sistem!',
+    tip: '💡 <strong>Tips Presentasi:</strong> Gunakan tombol "Full Dashboard" di navigasi atas jika ingin menampilkan visualisasi lebar di proyektor.'
+  }
+];
+
+let currentTutorialStep = 0;
+
+function renderOnboardingStep(index) {
+  if (index < 0 || index >= onboardingSteps.length) return;
+  currentTutorialStep = index;
+  const step = onboardingSteps[index];
+
+  // Counter
+  const counterEl = document.getElementById('onboarding-step-counter');
+  if (counterEl) counterEl.textContent = step.stepNum;
+
+  // Body Content
+  const bodyEl = document.getElementById('onboarding-body-content');
+  if (bodyEl) {
+    bodyEl.innerHTML = `
+      <div class="onboarding-hero-icon" style="background: ${step.iconBg};">
+        <span>${step.icon}</span>
+      </div>
+      <h3>${step.title}</h3>
+      <span class="onboarding-subtitle">${step.subtitle}</span>
+      <p class="onboarding-desc">${step.desc}</p>
+      <div class="onboarding-tip-box">${step.tip}</div>
+    `;
+  }
+
+  // Dots
+  const dotsContainer = document.getElementById('onboarding-dots');
+  if (dotsContainer) {
+    dotsContainer.innerHTML = onboardingSteps.map((_, i) => 
+      `<span class="dot ${i === index ? 'active' : ''}" onclick="goToOnboardingStep(${i})" style="cursor:pointer;" title="Ke langkah ${i + 1}"></span>`
+    ).join('');
+  }
+
+  // Navigation Buttons
+  const btnPrev = document.getElementById('btn-step-prev');
+  const btnNext = document.getElementById('btn-step-next');
+
+  if (btnPrev) {
+    btnPrev.style.display = index === 0 ? 'none' : 'block';
+  }
+
+  if (btnNext) {
+    if (index === onboardingSteps.length - 1) {
+      btnNext.innerHTML = 'Mulai Eksplorasi 🚀';
+      btnNext.style.background = 'linear-gradient(135deg, #1C5A37 0%, #0F311F 100%)';
+    } else {
+      btnNext.innerHTML = 'Lanjut &rarr;';
+      btnNext.style.background = 'linear-gradient(135deg, var(--brand-light) 0%, var(--brand-primary) 100%)';
+    }
+  }
+}
+
+function openOnboardingTutorial(stepIndex = 0) {
+  const modal = document.getElementById('onboarding-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  renderOnboardingStep(stepIndex);
+}
+
+function closeOnboardingTutorial() {
+  const modal = document.getElementById('onboarding-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+  try {
+    sessionStorage.setItem('bioloop_tutorial_seen', 'true');
+  } catch (e) {
+    // Ignore storage restrictions
+  }
+}
+
+function nextOnboardingStep() {
+  if (currentTutorialStep < onboardingSteps.length - 1) {
+    renderOnboardingStep(currentTutorialStep + 1);
+  } else {
+    closeOnboardingTutorial();
+    showToast('🎉 Selamat menjelajahi platform BioLoop!');
+  }
+}
+
+function prevOnboardingStep() {
+  if (currentTutorialStep > 0) {
+    renderOnboardingStep(currentTutorialStep - 1);
+  }
+}
+
+function goToOnboardingStep(index) {
+  renderOnboardingStep(index);
+}
+
+// Close modal when clicking on the dark backdrop
+const onboardingModalEl = document.getElementById('onboarding-modal');
+if (onboardingModalEl) {
+  onboardingModalEl.addEventListener('click', (e) => {
+    if (e.target === onboardingModalEl) {
+      closeOnboardingTutorial();
+    }
+  });
+}
+
+// Auto open tutorial on first visit after a soft delay
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (!sessionStorage.getItem('bioloop_tutorial_seen')) {
+      setTimeout(() => {
+        openOnboardingTutorial(0);
+      }, 700);
+    }
+  } catch (e) {
+    // fallback
+  }
+});
+
 // Initial Render
 renderDOM();
+

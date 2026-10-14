@@ -32,8 +32,12 @@
       </div>
     </div>
 
-    <!-- Presentation Control Mode: Mobile Phone vs Expanded Dashboard -->
+    <!-- Presentation Control Mode & Tutorial Trigger -->
     <div class="mode-switch-group">
+      <button id="btn-open-tutorial" class="view-pill tutorial-btn" onclick="openOnboardingTutorial()" title="Buka Panduan Alur Penggunaan">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span>💡 Alur Penggunaan</span>
+      </button>
       <button id="view-mode-phone" class="view-pill active" title="Tampilan Prototipe Mobile">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
         <span>Mobile Prototype</span>
@@ -100,6 +104,16 @@
                   <h3>Unit Bioreaktor #01 (Kantin & Resto)</h3>
                   <p>Fermentasi anaerobik stabil. Ketuk untuk inspeksi telemetri sensor &rarr;</p>
                 </div>
+              </div>
+
+              <!-- New User Guide Callout Card -->
+              <div class="user-guide-callout" onclick="openOnboardingTutorial()">
+                <div class="guide-callout-icon">💡</div>
+                <div class="guide-callout-text">
+                  <strong>Baru Pertama Kali di BioLoop?</strong>
+                  <span>Pelajari 5 langkah alur konversi food waste &amp; cara panen output &rarr;</span>
+                </div>
+                <span class="guide-callout-badge">Tutorial</span>
               </div>
 
               <!-- Waste Intake Counter Today -->
@@ -757,6 +771,37 @@
 
         <!-- Floating Interactive Toast Feedback -->
         <div class="toast-popup" id="toast-notif"></div>
+
+        <!-- Interactive Onboarding Tutorial Modal (New User Walkthrough) -->
+        <div class="onboarding-overlay" id="onboarding-modal" style="display: none;">
+          <div class="onboarding-card">
+            <!-- Header with Step Indicator & Close Button -->
+            <div class="onboarding-header">
+              <span class="step-counter-badge" id="onboarding-step-counter">Langkah 1 dari 5</span>
+              <button class="skip-btn" onclick="closeOnboardingTutorial()" title="Tutup Tutorial">Tutup &times;</button>
+            </div>
+            
+            <!-- Dynamic Slide Content Body -->
+            <div class="onboarding-body" id="onboarding-body-content">
+              <!-- Content injected via app.js -->
+            </div>
+
+            <!-- Stepper Dots -->
+            <div class="onboarding-dots" id="onboarding-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Action Navigation Buttons -->
+            <div class="onboarding-footer">
+              <button class="btn-step-prev" id="btn-step-prev" onclick="prevOnboardingStep()" style="display:none;">&larr; Kembali</button>
+              <button class="btn-step-next" id="btn-step-next" onclick="nextOnboardingStep()">Lanjut &rarr;</button>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
