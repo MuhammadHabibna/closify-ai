@@ -1,6 +1,7 @@
 /**
- * BioLoop AIoT Web Platform — Interactive Engine
- * Mendukung simulasi live sensor, alur konversi circular, diagnosa AI, dan panen output.
+ * BioLoop AIoT Web Platform: Interactive Engine
+ * Mendukung simulasi live sensor, bento widget, diagnosa AI, dan panen komoditas.
+ * Zero AI-slop, clean typography, SVG iconography.
  */
 
 // State Management
@@ -49,14 +50,14 @@ if (btnViewPhone && btnViewDesktop) {
     document.body.classList.remove('mode-desktop-active');
     btnViewPhone.classList.add('active');
     btnViewDesktop.classList.remove('active');
-    showToast('Beralih ke Mode Mobile Prototype');
+    showToast('Beralih ke mode Mobile App');
   });
 
   btnViewDesktop.addEventListener('click', () => {
     document.body.classList.add('mode-desktop-active');
     btnViewDesktop.classList.add('active');
     btnViewPhone.classList.remove('active');
-    showToast('Beralih ke Mode Full Dashboard');
+    showToast('Beralih ke mode Full Dashboard');
   });
 }
 
@@ -118,7 +119,18 @@ function showToast(message) {
 
 // Update DOM elements reflecting state
 function renderDOM() {
-  // Dashboard & Metric values
+  // Dashboard Hero Radial Gauge
+  const elHeroMethane = document.getElementById('hero-methane-pct');
+  if (elHeroMethane) elHeroMethane.textContent = `${state.methanePct}%`;
+
+  const heroGaugeCircle = document.getElementById('hero-gauge-circle');
+  if (heroGaugeCircle) {
+    const circumference = 251.2;
+    const offset = circumference - (circumference * (state.methanePct / 100));
+    heroGaugeCircle.style.strokeDashoffset = offset;
+  }
+
+  // Dashboard Waste Metric
   const elWaste = document.getElementById('val-waste-intake');
   if (elWaste) elWaste.textContent = state.wasteIntakeToday.toFixed(1);
 
@@ -133,7 +145,7 @@ function renderDOM() {
   const elBioSub = document.getElementById('dash-qty-biogas');
   const lpgEquiv = (state.biogasVolM3 / 2.15).toFixed(1);
   if (elBioVol) elBioVol.textContent = `${state.biogasVolM3.toFixed(1)} m³`;
-  if (elBioSub) elBioSub.textContent = `${state.biogasVolM3.toFixed(1)} m³ • Setara ${lpgEquiv} LPG`;
+  if (elBioSub) elBioSub.textContent = `${state.biogasVolM3.toFixed(1)} m³ / Setara ${lpgEquiv} Tabung LPG`;
 
   // POC DOM
   document.querySelectorAll('#dash-pct-poc, #prod-poc-pct').forEach(el => el.textContent = `${state.pocPct}%`);
@@ -145,7 +157,7 @@ function renderDOM() {
   const elPocVol = document.getElementById('prod-poc-vol');
   const elPocSub = document.getElementById('dash-qty-poc');
   if (elPocVol) elPocVol.textContent = `${state.pocVolL.toFixed(1)} Liter`;
-  if (elPocSub) elPocSub.textContent = `${state.pocVolL.toFixed(1)} Liter • ${state.pocPct > 65 ? 'Siap Kuras' : 'Fermentasi'}`;
+  if (elPocSub) elPocSub.textContent = `${state.pocVolL.toFixed(1)} Liter / ${state.pocPct > 65 ? 'Siap Kuras' : 'Fermentasi'}`;
 
   // POP DOM
   document.querySelectorAll('#dash-pct-pop, #prod-pop-pct').forEach(el => el.textContent = `${state.popPct}%`);
@@ -157,7 +169,7 @@ function renderDOM() {
   const elPopVol = document.getElementById('prod-pop-vol');
   const elPopSub = document.getElementById('dash-qty-pop');
   if (elPopVol) elPopVol.textContent = `${state.popVolKg.toFixed(1)} Kg`;
-  if (elPopSub) elPopSub.textContent = `${state.popVolKg.toFixed(1)} Kg • Pengeringan`;
+  if (elPopSub) elPopSub.textContent = `${state.popVolKg.toFixed(1)} Kg / Pengeringan`;
 
   // Valuation
   const bioVal = Math.round(state.biogasVolM3 * 10500);
@@ -206,7 +218,7 @@ function simTriggerAddWaste() {
   state.popVolKg = +(state.popVolKg + 0.8).toFixed(1);
 
   renderDOM();
-  showToast('✅ Berhasil memasukkan 5.0 Kg food waste ke shredder & digester!');
+  showToast('Memasukkan 5.0 Kg food waste ke shredder & digester.');
 }
 
 // SIMULATION 2: Panen / Salurkan Biogas ke Kompor
@@ -218,79 +230,80 @@ function simTriggerHarvestGas() {
   const harvestedM3 = (state.biogasVolM3 * 0.55).toFixed(1);
   state.biogasPct = 30;
   state.biogasVolM3 = +(state.biogasVolM3 - harvestedM3).toFixed(1);
-  state.pressureBar = 1.1;
-
+  
   renderDOM();
-  showToast(`🔥 ${harvestedM3} m³ Biogas disalurkan ke kompor UMKM. Tekanan chamber turun ke 1.1 Bar.`);
+  showToast(`Membuka valve: ${harvestedM3} m³ gas disalurkan ke dapur.`);
 }
 
-// SIMULATION 3: Kuras Pupuk Cair (POC)
+// SIMULATION 3: Kuras Pupuk POC
 function simTriggerHarvestPOC() {
-  if (state.pocPct <= 20) {
-    showToast('Volume POC masih sedikit. Tunggu siklus pemisahan sentrifugal.');
+  if (state.pocVolL <= 4.0) {
+    showToast('Volume POC belum mencukupi batas kuras ekonomis.');
     return;
   }
-  const harvestedL = (state.pocVolL * 0.7).toFixed(1);
-  state.pocPct = 22;
-  state.pocVolL = +(state.pocVolL - harvestedL).toFixed(1);
+  const drainedL = 10.0;
+  state.pocVolL = Math.max(2.0, +(state.pocVolL - drainedL).toFixed(1));
+  state.pocPct = Math.round((state.pocVolL / 25.0) * 100);
 
   renderDOM();
-  showToast(`💧 ${harvestedL} Liter POC berhasil dikuras via outlet kran ke jerigen!`);
+  showToast(`Menguras 10.0L pupuk organik cair ke jerigen siap jual.`);
 }
 
-// SIMULATION 4: Panen Kompos Padat (POP)
+// SIMULATION 3B: Kemas Pupuk POP
 function simTriggerHarvestPOP() {
-  const harvestedKg = (state.popVolKg * 0.6).toFixed(1);
-  state.popPct = 18;
-  state.popVolKg = +(state.popVolKg - harvestedKg).toFixed(1);
+  if (state.popVolKg <= 3.0) {
+    showToast('Massa digestate padat belum mencapai siklus panen.');
+    return;
+  }
+  const packedKg = 5.0;
+  state.popVolKg = Math.max(1.5, +(state.popVolKg - packedKg).toFixed(1));
+  state.popPct = Math.round((state.popVolKg / 22.0) * 100);
 
   renderDOM();
-  showToast(`🌱 ${harvestedKg} Kg Pupuk Padat (POP) dikemas dalam karung kompos.`);
+  showToast(`Mengemas 5.0 Kg bio-kompos padat ke karung kemasan.`);
 }
 
-// SIMULATION 5: Trigger Anomali Asidosis (pH drop)
+// SIMULATION 4: Trigger Anomali Asidosis (pH Drop)
 function simTriggerAcidosisAnomaly() {
   state.isAcidosis = true;
-  state.ph = 6.1;
-  state.tempC = 39.4;
-  state.healthScore = 74;
+  state.ph = 5.8; // Acidic drop
+  state.tempC = 39.4; // Temp spike
+  state.methanePct = 42; // Methane quality drops
+  state.healthScore = 71;
 
-  renderDOM();
-
-  // Update AI Recommendation Card
+  // Update AI Recommendation Card dynamically
   const souringTag = document.getElementById('souring-tag');
   const souringTitle = document.getElementById('souring-title');
   const souringDesc = document.getElementById('souring-desc');
   const souringAction = document.getElementById('souring-action');
 
   if (souringTag) {
-    souringTag.textContent = 'BAHAYA ASIDOSIS (pH 6.1)';
-    souringTag.className = 'recom-tag alert-red';
+    souringTag.textContent = 'Peringatan Asidosis';
+    souringTag.className = 'recom-tag alert-amber';
   }
   if (souringTitle) {
-    souringTitle.textContent = 'Peringatan Anomali: pH Terlalu Asam';
-    souringTitle.style.color = 'var(--red)';
+    souringTitle.textContent = 'Potensi Asidosis Reaktor (pH 5.8 Drop)';
+    souringTitle.style.color = 'var(--red-primary)';
   }
   if (souringDesc) {
-    souringDesc.textContent = 'Deteksi akumulasi VFA (Volatile Fatty Acids). Bakteri metanogen terancam mati jika tidak dinetralkan.';
+    souringDesc.textContent = 'Akumulasi asam lemak volatil (VFA) melampaui kapasitas buffer. Populasi metanogen tertekan.';
   }
   if (souringAction) {
-    souringAction.style.borderLeftColor = 'var(--red)';
-    souringAction.style.background = 'var(--red-bg)';
-    souringAction.innerHTML = '<strong>TINDAKAN DARURAT AI:</strong> Segera tambahkan 2.0 Liter larutan air kapur pertanian Ca(OH)2 dan hentikan limbah buah asam selama 24 jam.';
+    souringAction.style.borderLeftColor = 'var(--red-primary)';
+    souringAction.style.background = '#FEF2F2';
+    souringAction.innerHTML = '<strong>Resep AI:</strong> Injeksikan 250 gram buffer Ca(OH)2 (air kapur) & perlambat laju input substrat selama 12 jam.';
   }
 
-  // Update strip on dashboard
   const dashStrip = document.getElementById('dash-ai-strip-text');
   if (dashStrip) {
-    dashStrip.textContent = '⚠️ WASPADA ASIDOSIS: pH anjlok ke 6.1. Segera periksa tab AI Maintenance!';
+    dashStrip.textContent = 'Peringatan: pH turun ke 5.8 (Asidosis). AI merekomendasikan injeksi 250g Ca(OH)2.';
   }
 
-  navigateTo('maintenance');
-  showToast('⚠️ AI Mendeteksi Anomali pH (6.1)! Rekomendasi perbaikan aktif.');
+  renderDOM();
+  showToast('Simulasi asidosis aktif: Perhatikan rekomendasi AI Maintenance.');
 }
 
-// SIMULATION 6: Reset Kondisi Normal
+// SIMULATION 5: Reset Sistem ke Normal
 function simResetAll() {
   state.wasteIntakeToday = 24.8;
   state.tempC = 37.2;
@@ -319,10 +332,10 @@ function simResetAll() {
   }
   if (souringTitle) {
     souringTitle.textContent = 'Stabilitas Derajat Keasaman (pH)';
-    souringTitle.style.color = 'var(--ink)';
+    souringTitle.style.color = 'var(--ink-primary)';
   }
   if (souringDesc) {
-    souringDesc.textContent = 'Aktivitas bakteri metanogen dalam rasio seimbang (pH 7.1). Tidak ada risiko pengasaman (*souring*).';
+    souringDesc.textContent = 'Aktivitas bakteri metanogen dalam rasio seimbang (pH 7.1). Tidak ada risiko pengasaman reaktor (souring).';
   }
   if (souringAction) {
     souringAction.style.borderLeftColor = 'var(--brand-primary)';
@@ -336,7 +349,7 @@ function simResetAll() {
   }
 
   renderDOM();
-  showToast('🔄 Sistem BioLoop telah di-reset ke kondisi normal operasional.');
+  showToast('Sistem BioLoop telah di-reset ke kondisi operasional optimal.');
 }
 
 // Refresh Sensors
@@ -344,19 +357,19 @@ function refreshSensors() {
   state.tempC = +(37.0 + (Math.random() * 0.6 - 0.3)).toFixed(1);
   state.moisturePct = Math.round(77 + (Math.random() * 2));
   renderDOM();
-  showToast('⟳ Telemetri sensor IoT berhasil diperbarui secara live.');
+  showToast('Telemetri sensor IoT berhasil diperbarui.');
 }
 
 // Run Quick AI Diagnostic
 function runAiDiagnostic() {
-  showToast('🤖 AI memindai 1.420 data sensor... Hasil: Seluruh katup & mikroba normal.');
+  showToast('AI memindai 1.420 data sensor: Seluruh katup & mikroba normal.');
 }
 
 // Mark notifications read
 function markAllNotificationsRead() {
   const badge = document.getElementById('notif-badge');
   if (badge) badge.style.display = 'none';
-  showToast('✓ Semua notifikasi telah ditandai terbaca.');
+  showToast('Semua notifikasi telah ditandai terbaca.');
 }
 
 // Direct button triggers in screen
@@ -367,49 +380,49 @@ function simulateHarvestPOP() { simTriggerHarvestPOP(); }
 // ================= INTERACTIVE ONBOARDING TUTORIAL ENGINE =================
 const onboardingSteps = [
   {
-    stepNum: 'Langkah 1 dari 5',
-    icon: '🥑',
-    iconBg: '#EBF7DC',
+    stepNum: 'Langkah 1 / 5',
+    iconBg: 'var(--brand-bg)',
+    iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
     title: 'Input & Sortir AI Vision',
     subtitle: 'Deteksi Kontaminan Anorganik Otomatis',
-    desc: 'Limbah sisa makanan (kantin & resto) ditimbang dan dimasukkan ke hopper inlet. Kamera edge AI Vision otomatis mendeteksi dan menolak kontaminan anorganik (plastik, sendok, styrofoam) dengan akurasi 96.4% sebelum pencacahan mikro 2–4 mm.',
-    tip: '💡 <strong>Tahap Kunci:</strong> Menjamin kemurnian substrat organik agar proses fermentasi anaerobik tidak terganggu residu non-biodegradable.'
+    desc: 'Limbah sisa makanan ditimbang dan dimasukkan ke hopper inlet. Kamera edge AI Vision otomatis mendeteksi dan menolak kontaminan anorganik (plastik, sendok, styrofoam) dengan akurasi 96.4% sebelum pencacahan mikro 2-4 mm.',
+    tip: '<strong>Tahap Kunci:</strong> Menjamin kemurnian substrat organik agar proses fermentasi anaerobik tidak terganggu residu non-biodegradable.'
   },
   {
-    stepNum: 'Langkah 2 dari 5',
-    icon: '⚡',
-    iconBg: '#FCF4E4',
+    stepNum: 'Langkah 2 / 5',
+    iconBg: 'var(--amber-bg)',
+    iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>',
     title: 'Fermentasi & Telemetri IoT',
     subtitle: 'Digester Anaerobik Terkendali 24/7',
     desc: 'Substrat organik masuk ke bioreaktor tertutup. Sensor multi-parameter ESP32 memantau suhu mesofilik (37.2°C), pH (7.1 netral), kelembapan, dan tekanan secara real-time. Agitator otomatis berputar berkala mencegah timbunan kerak (scum).',
-    tip: '💡 <strong>Stabilitas Reaktor:</strong> Bakteri metanogen bekerja optimal pada kondisi mesofilik 35–38°C dan pH 6.8–7.4.'
+    tip: '<strong>Stabilitas Reaktor:</strong> Bakteri metanogen bekerja optimal pada kondisi mesofilik 35°C sampai 38°C dan pH 6.8 sampai 7.4.'
   },
   {
-    stepNum: 'Langkah 3 dari 5',
-    icon: '🔄',
-    iconBg: '#EAF2F9',
+    stepNum: 'Langkah 3 / 5',
+    iconBg: 'var(--blue-bg)',
+    iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
     title: 'Panen 3 Produk Bernilai Tinggi',
     subtitle: 'Biogas Murni, Pupuk POC & Pupuk POP',
     desc: 'Konversi anaerobik menghasilkan 3 komoditas bernilai ekonomi: Biogas termurnikan (CH4 68% setara 2.4 tabung LPG), Pupuk Organik Cair (POC kaya NPK untuk fertigasi), dan Bio-kompos padat (POP) untuk rehabilitasi tanah.',
-    tip: '💡 <strong>Notifikasi Panen:</strong> Sistem otomatis memicu alarm ketika tangki penyimpanan gas atau pupuk mencapai >80% kapasitas.'
+    tip: '<strong>Notifikasi Panen:</strong> Sistem otomatis memicu alarm ketika tangki penyimpanan gas atau pupuk mencapai di atas 80% kapasitas.'
   },
   {
-    stepNum: 'Langkah 4 dari 5',
-    icon: '🤖',
-    iconBg: '#F3E8FF',
+    stepNum: 'Langkah 4 / 5',
+    iconBg: 'var(--indigo-bg)',
+    iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>',
     title: 'AI Predictive Maintenance',
     subtitle: 'Proteksi Asidosis & Filter Bio-Scrubber',
-    desc: 'Algoritma machine learning BioLoop memprediksi potensi pengasaman (acidosis/souring) sebelum terjadi kegagalan reaktor. Memberikan resep presisi (misal: injeksi buffer air kapur Ca(OH)2) serta estimasi umur filter bio-scrubber H2S.',
-    tip: '💡 <strong>Zero Downtime:</strong> Mencegah kerugian matinya koloni bakteri tanpa memerlukan tes laboratorium manual.'
+    desc: 'Algoritma machine learning BioLoop memprediksi potensi pengasaman (acidosis/souring) sebelum terjadi kegagalan reaktor. Memberikan resep presisi (injeksi buffer air kapur Ca(OH)2) serta estimasi umur filter bio-scrubber H2S.',
+    tip: '<strong>Zero Downtime:</strong> Mencegah kerugian matinya koloni bakteri tanpa memerlukan tes laboratorium manual.'
   },
   {
-    stepNum: 'Langkah 5 dari 5',
-    icon: '🚀',
-    iconBg: '#DCFCE7',
+    stepNum: 'Langkah 5 / 5',
+    iconBg: 'var(--green-bg)',
+    iconSvg: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>',
     title: 'Simulasi Live untuk Juri',
     subtitle: 'Eksplorasi Responsif Real-Time Platform',
-    desc: 'Di sisi kanan layar tersedia panel simulasi live untuk demonstrasi kepada Dewan Juri: Uji Skenario Asidosis (pH drop), Simulasi Panen Biogas, Panen Pupuk, hingga Tambah Timbulan Sampah untuk menguji respon adaptif sistem!',
-    tip: '💡 <strong>Tips Presentasi:</strong> Gunakan tombol "Full Dashboard" di navigasi atas jika ingin menampilkan visualisasi lebar di proyektor.'
+    desc: 'Di sisi kanan layar tersedia panel simulasi live untuk demonstrasi kepada Dewan Juri: Uji Skenario Asidosis (pH drop), Simulasi Panen Biogas, Panen Pupuk, hingga Tambah Timbulan Sampah untuk menguji respon adaptif sistem.',
+    tip: '<strong>Tips Presentasi:</strong> Gunakan tombol "Full Dashboard" di navigasi atas jika ingin menampilkan visualisasi lebar di proyektor.'
   }
 ];
 
@@ -424,12 +437,12 @@ function renderOnboardingStep(index) {
   const counterEl = document.getElementById('onboarding-step-counter');
   if (counterEl) counterEl.textContent = step.stepNum;
 
-  // Body Content
+  // Body Content with clean SVG
   const bodyEl = document.getElementById('onboarding-body-content');
   if (bodyEl) {
     bodyEl.innerHTML = `
       <div class="onboarding-hero-icon" style="background: ${step.iconBg};">
-        <span>${step.icon}</span>
+        ${step.iconSvg}
       </div>
       <h3>${step.title}</h3>
       <span class="onboarding-subtitle">${step.subtitle}</span>
@@ -451,15 +464,15 @@ function renderOnboardingStep(index) {
   const btnNext = document.getElementById('btn-step-next');
 
   if (btnPrev) {
-    btnPrev.style.display = index === 0 ? 'none' : 'block';
+    btnPrev.style.display = index === 0 ? 'none' : 'flex';
   }
 
   if (btnNext) {
     if (index === onboardingSteps.length - 1) {
-      btnNext.innerHTML = 'Mulai Eksplorasi 🚀';
-      btnNext.style.background = 'linear-gradient(135deg, #1C5A37 0%, #0F311F 100%)';
+      btnNext.innerHTML = '<span>Mulai Eksplorasi</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+      btnNext.style.background = 'linear-gradient(135deg, #059669 0%, #064E3B 100%)';
     } else {
-      btnNext.innerHTML = 'Lanjut &rarr;';
+      btnNext.innerHTML = '<span>Lanjut</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
       btnNext.style.background = 'linear-gradient(135deg, var(--brand-light) 0%, var(--brand-primary) 100%)';
     }
   }
@@ -489,7 +502,7 @@ function nextOnboardingStep() {
     renderOnboardingStep(currentTutorialStep + 1);
   } else {
     closeOnboardingTutorial();
-    showToast('🎉 Selamat menjelajahi platform BioLoop!');
+    showToast('Selamat menjelajahi platform BioLoop AIoT.');
   }
 }
 
@@ -528,4 +541,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Initial Render
 renderDOM();
-
