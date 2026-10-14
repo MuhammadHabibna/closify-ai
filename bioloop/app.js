@@ -22,9 +22,14 @@ const state = {
   popPct: 45,
   popVolKg: 10.2,
 
-  // Health & AI
+  // Health & AI Component Scores (Modul 3)
   healthScore: 96,
+  compMotorPct: 94,
+  compDigesterPct: 98,
+  compScrubberPct: 84,
+  compValvePct: 96,
   isAcidosis: false,
+  isValveLeak: false,
   unreadNotifs: 3
 };
 
@@ -204,6 +209,19 @@ function renderDOM() {
   // Health Score
   const elHealth = document.getElementById('ai-health-score');
   if (elHealth) elHealth.textContent = state.healthScore;
+
+  // 4 Component Health Scores (Modul 3)
+  const elCompMotor = document.getElementById('score-comp-motor');
+  if (elCompMotor) elCompMotor.textContent = `${state.compMotorPct}%`;
+
+  const elCompDigester = document.getElementById('score-comp-digester');
+  if (elCompDigester) elCompDigester.textContent = `${state.compDigesterPct}%`;
+
+  const elCompScrubber = document.getElementById('score-comp-scrubber');
+  if (elCompScrubber) elCompScrubber.textContent = `${state.compScrubberPct}%`;
+
+  const elCompValve = document.getElementById('score-comp-valve');
+  if (elCompValve) elCompValve.textContent = `${state.compValvePct}%`;
 }
 
 // SIMULATION 1: Tambah 5 Kg Sampah
@@ -269,12 +287,13 @@ function simTriggerAcidosisAnomaly() {
   state.ph = 5.8; // Acidic drop
   state.tempC = 39.4; // Temp spike
   state.methanePct = 42; // Methane quality drops
+  state.compDigesterPct = 62;
   state.healthScore = 71;
 
   // Update AI Recommendation Card dynamically
   const souringTag = document.getElementById('souring-tag');
   const souringTitle = document.getElementById('souring-title');
-  const souringDesc = document.getElementById('souring-desc');
+  const souringRoot = document.getElementById('souring-rootcause');
   const souringAction = document.getElementById('souring-action');
 
   if (souringTag) {
@@ -285,13 +304,12 @@ function simTriggerAcidosisAnomaly() {
     souringTitle.textContent = 'Potensi Asidosis Reaktor (pH 5.8 Drop)';
     souringTitle.style.color = 'var(--red-primary)';
   }
-  if (souringDesc) {
-    souringDesc.textContent = 'Akumulasi asam lemak volatil (VFA) melampaui kapasitas buffer. Populasi metanogen tertekan.';
+  if (souringRoot) {
+    souringRoot.innerHTML = '<strong>Analisis AI (Root Cause):</strong> Akumulasi asam lemak volatil (VFA) berlebih dari sisa buah/asam. Populasi mikroba metanogen tertekan.';
   }
   if (souringAction) {
-    souringAction.style.borderLeftColor = 'var(--red-primary)';
-    souringAction.style.background = '#FEF2F2';
-    souringAction.innerHTML = '<strong>Resep AI:</strong> Injeksikan 250 gram buffer Ca(OH)2 (air kapur) & perlambat laju input substrat selama 12 jam.';
+    souringAction.className = 'prescriptive-action action-alert';
+    souringAction.innerHTML = '<strong>Tindakan Preskriptif:</strong> Hentikan umpan food waste sementara &amp; injeksikan 250 gram buffer Ca(OH)2 (air kapur). Perlambat laju input selama 12 jam.';
   }
 
   const dashStrip = document.getElementById('dash-ai-strip-text');
@@ -300,7 +318,59 @@ function simTriggerAcidosisAnomaly() {
   }
 
   renderDOM();
-  showToast('Simulasi asidosis aktif: Perhatikan rekomendasi AI Maintenance.');
+  showToast('Simulasi asidosis aktif: Perhatikan resep preskriptif di AI Maintenance.');
+}
+
+// SIMULATION 4B: Trigger Kebocoran Katup Pipa Gas B-02 (Modul 3 & Matriks Logika AI)
+function simTriggerValveLeak() {
+  state.isValveLeak = true;
+  state.pressureBar = 0.5; // Pressure drop drastic
+  state.methanePct = 39;
+  state.compValvePct = 42;
+  state.compDigesterPct = 78;
+  state.healthScore = 68;
+
+  const valveTag = document.getElementById('valve-tag');
+  const valveTitle = document.getElementById('valve-title');
+  const valveRootcause = document.getElementById('valve-rootcause');
+  const valveAction = document.getElementById('valve-action');
+
+  if (valveTag) {
+    valveTag.textContent = 'Peringatan Kebocoran';
+    valveTag.className = 'recom-tag alert-amber';
+  }
+  if (valveTitle) {
+    valveTitle.textContent = 'Indikasi Kebocoran Katup Pipa Gas B-02';
+    valveTitle.style.color = 'var(--red-primary)';
+  }
+  if (valveRootcause) {
+    valveRootcause.innerHTML = '<strong>Analisis AI (Root Cause):</strong> Suhu reaktor normal 37.2°C dan substrat stabil, namun tekanan gas turun drastis ke 0.5 Bar. Model korelasi multi-sensor mendeteksi anomali seal katup pipa B-02.';
+  }
+  if (valveAction) {
+    valveAction.className = 'prescriptive-action action-alert';
+    valveAction.innerHTML = '<strong>Tindakan Preskriptif:</strong> Inspeksi segera segel gasket katup B-02, kencangkan seal klem flange atau pasang o-ring cadangan (SLA: &lt; 2 jam).';
+  }
+
+  const dashStrip = document.getElementById('dash-ai-strip-text');
+  if (dashStrip) {
+    dashStrip.textContent = 'Peringatan AI: Tekanan gas drop ke 0.5 Bar. Segera inspeksi katup pipa B-02.';
+  }
+
+  renderDOM();
+  showToast('Anomali terdeteksi: Tekanan gas drop tanpa penurunan suhu. Cek AI Maintenance.');
+}
+
+// SIMULATION 4C: Trigger Dispatch Notifikasi Mitra Hilir (Modul 4)
+function simTriggerOfftakerDispatch(type) {
+  const statusEl = document.getElementById('offtaker-dispatch-status');
+  if (type === 'poc') {
+    if (statusEl) statusEl.textContent = 'Terkirim (08:00 WIB)';
+    showToast('Notifikasi terkirim: 450L POC siap ambil ke Kelompok Tani Makmur Lestari.');
+  } else if (type === 'biogas') {
+    showToast('Aliran biogas dibuka ke Komunitas Dapur Bersama UMKM (Tekanan 1.8 Bar).');
+  } else if (type === 'pop') {
+    showToast('Penjadwalan 50 Kg bio-kompos terkirim ke Urban Farming Bibit.');
+  }
 }
 
 // SIMULATION 5: Reset Sistem ke Normal
@@ -318,12 +388,17 @@ function simResetAll() {
   state.popPct = 45;
   state.popVolKg = 10.2;
   state.healthScore = 96;
+  state.compMotorPct = 94;
+  state.compDigesterPct = 98;
+  state.compScrubberPct = 84;
+  state.compValvePct = 96;
   state.isAcidosis = false;
+  state.isValveLeak = false;
 
-  // Restore AI Recommendation Card
+  // Restore Souring Card
   const souringTag = document.getElementById('souring-tag');
   const souringTitle = document.getElementById('souring-title');
-  const souringDesc = document.getElementById('souring-desc');
+  const souringRoot = document.getElementById('souring-rootcause');
   const souringAction = document.getElementById('souring-action');
 
   if (souringTag) {
@@ -331,17 +406,41 @@ function simResetAll() {
     souringTag.className = 'recom-tag alert-green';
   }
   if (souringTitle) {
-    souringTitle.textContent = 'Stabilitas Derajat Keasaman (pH)';
+    souringTitle.textContent = 'Stabilitas Biologis Derajat Keasaman (pH)';
     souringTitle.style.color = 'var(--ink-primary)';
   }
-  if (souringDesc) {
-    souringDesc.textContent = 'Aktivitas bakteri metanogen dalam rasio seimbang (pH 7.1). Tidak ada risiko pengasaman reaktor (souring).';
+  if (souringRoot) {
+    souringRoot.innerHTML = '<strong>Analisis AI (Root Cause):</strong> Rasio VFA/Alkalinitas seimbang pada pH 7.1. Populasi mikroba metanogenik aktif optimal.';
   }
   if (souringAction) {
-    souringAction.style.borderLeftColor = 'var(--brand-primary)';
-    souringAction.style.background = 'var(--surface-muted)';
-    souringAction.innerHTML = '<strong>Rekomendasi Operasional:</strong> Pertahankan variasi input sampah sayur & nasi seimbang.';
+    souringAction.className = 'prescriptive-action';
+    souringAction.innerHTML = '<strong>Tindakan Preskriptif:</strong> Pertahankan variasi umpan limbah sayuran dan karbohidrat seimbang. Umpan asam dibatasi &le; 15%.';
   }
+
+  // Restore Valve Card
+  const valveTag = document.getElementById('valve-tag');
+  const valveTitle = document.getElementById('valve-title');
+  const valveRoot = document.getElementById('valve-rootcause');
+  const valveAction = document.getElementById('valve-action');
+
+  if (valveTag) {
+    valveTag.textContent = 'Penyegelan Normal';
+    valveTag.className = 'recom-tag alert-green';
+  }
+  if (valveTitle) {
+    valveTitle.textContent = 'Integritas Katup &amp; Jalur Pipa Gas B-02';
+    valveTitle.style.color = 'var(--ink-primary)';
+  }
+  if (valveRoot) {
+    valveRoot.innerHTML = '<strong>Analisis AI (Root Cause):</strong> Korelasi suhu reaktor (37.2°C) dan laju aliran gas konsisten pada tekanan 1.8 Bar. Tidak ada kebocoran membran.';
+  }
+  if (valveAction) {
+    valveAction.className = 'prescriptive-action';
+    valveAction.innerHTML = '<strong>Tindakan Preskriptif:</strong> Jalankan inspeksi rutin segel elastomer setiap 60 hari operasional.';
+  }
+
+  const offtakerStatus = document.getElementById('offtaker-dispatch-status');
+  if (offtakerStatus) offtakerStatus.textContent = 'Stok Siap Salur';
 
   const dashStrip = document.getElementById('dash-ai-strip-text');
   if (dashStrip) {

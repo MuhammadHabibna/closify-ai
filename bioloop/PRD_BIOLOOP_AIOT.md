@@ -1,179 +1,156 @@
-# PRODUCT REQUIREMENT DOCUMENT (PRD) & ARSITEKTUR PLATFORM
-# BioLoop: Smart AIoT Waste-to-Value Platform
-**Sistem Terintegrasi Konversi Food Waste Menjadi Biogas & Biofertilizer Berbasis AIoT untuk Mendukung Circular Economy**  
-*Kategori: Inovasi Teknologi Berkelanjutan & Ekonomi Sirkular (KIMNAS UNESA 2026)*
+# PRODUCT REQUIREMENT DOCUMENT (PRD) & ARSITEKTUR SISTEM
+# BioLoop: Smart AIoT Dashboard & Product Management System
+
+**Sistem Terintegrasi Konversi Food Waste Menjadi Tiga Komoditas Sirkular (Biogas, POC, POP) Berbasis AI dan IoT untuk Mendukung Circular Economy**  
+*Kesesuaian Subtema KIMNAS XI: Ekonomi Hijau · Ekonomi Keberlanjutan · Teknologi Digital*
 
 ---
 
-## 1. Executive Summary & Visi Produk
+## 1. Visi Produk & Pergeseran Paradigma
+### Dari "Sekadar Alat Biodigester" Menjadi "Pabrik Mikro Cerdas Penghasil 3 Komoditas Sirkular"
 
-| Atribut | Deskripsi |
-|---|---|
-| **Nama Produk** | **BioLoop Platform (BioLoop OS & AIoT Monitoring Ecosystem)** |
-| **Kategori Inovasi** | Clean-Tech, Smart Biodigester Automation, Circular Economy & AIoT |
-| **Target Output** | 1. **Biogas Murni (CH4)** — Energi terbarukan pengganti LPG fosil<br>2. **Pupuk Organik Cair (POC)** — Nutrisi cair tanaman cepat serap<br>3. **Pupuk Organik Padat (POP)** — Soil conditioner & pemulih kesuburan tanah |
-| **Dukungan Teknologi** | **AI Vision** (Sortir kontaminan), **IoT Telemetry** (Multi-sensor pH, Suhu, Tekanan, Kelembaban), **AI Predictive Maintenance** (Deteksi dini *souring* & kerusakan mesin) |
-| **Benchmark Referensi** | `precious-longma-79817e.netlify.app` (*UrbanBio interactive shell prototype*) dengan penyesuaian fungsionalitas cerdas berorientasi produk & pemeliharaan mesin. |
+Pada esai dan implementasi teknologi terkini, sistem fisik BioLoop tidak lagi diposisikan sebagai mesin biodigester konvensional yang pasif (*black box*), melainkan sebagai **pabrik mikro terdesentralisasi penghasil tiga produk ekonomi sirkular** yang dikendalikan melalui Web Platform cerdas berbasis AIoT:
 
----
-
-## 2. Latar Belakang Masalah & Urgensi Solusi (Berdasarkan Essai)
-
-1. **Volume Sampah Masif & Tidak Termaksimalkan:**
-   * Food waste menyumbang **39,36%** dari total 33,79 juta ton timbulan sampah nasional (SIPSN, 2024).
-   * Sumber terbesar: Rumah tangga (**50,8%**), Pasar tradisional (**16,67%**), serta Pusat Kuliner & Restoran (**11,01%**).
-   * Karakteristik limbah organik mencapai **52,55%** (Wijaya & Sjah, 2026) yang memiliki potensi biomassa luar biasa untuk *anaerobic digestion*.
-2. **Kelemahan Fatal Biodigester Konvensional:**
-   * **Buta Kondisi Internal (*Black Box*):** Operator tidak tahu apakah digester mengalami *acidification/souring* (pH drop) hingga fermentasi gagal total.
-   * **Risiko *Overpressure* & Kebocoran:** Tekanan gas tidak termonitor real-time, berisiko meledak atau filter H2S jenuh tanpa disadari.
-   * **Tidak Tahu Waktu Panen Ideal:** Tidak ada sensor level kapasitas gas dan digestate, sehingga gas terbuang percuma atau tangki pupuk meluap.
-   * **Kerusakan Mekis Mendadak:** Pisau pencacah tumpul atau pompa sirkulasi tersumbat tanpa ada sistem prediksi perawatan.
+1. **Fokus Produk (Product-Centric Monitoring):**
+   * Web memantau secara *real-time* volume dan kesiapan panen 3 komoditas utama:
+     * **Biogas Metana ($CH_4$ Murni):** Pemantauan tekanan (Bar), persentase volume tangki, dan ekuivalensi energi listrik (kWh) serta substitusi tabung gas LPG 3 Kg.
+     * **Pupuk Organik Cair (POC):** Sensor ultrasonik mendeteksi ketinggian cairan (Liter), stabilitas derajat keasaman (pH 6.8–7.4), dan kesiapan kemas.
+     * **Pupuk Organik Padat (POP):** Load cell dan sensor kelembaban kompartemen padat mendeteksi kematangan kompos digestate (kadar air $<25\%$) siap kirim ke kelompok tani.
+2. **Fokus Alur Kerja (End-to-End Workflow Tracking):**
+   * Visualisasi interaktif status aktif 5 tahapan konversi kontinu (*Penerimaan & Pemilahan AI $\rightarrow$ Pencacahan & Slurry Prep $\rightarrow$ Anaerobic Digestion $\rightarrow$ Pemurnian Gas Scrubber $\rightarrow$ Separasi Digestate POC & POP*).
+3. **Fokus Keandalan & Perawatan (AI Predictive Maintenance):**
+   * Mesin AI di lapisan *cloud/web* mengolah deviasi telemetri sensor untuk mendiagnosis anomali sedini mungkin (kebocoran katup pipa gas B-02, pengasaman reaktor/asidosis, saturasi media filter scrubber $H_2S$, dan lonjakan beban arus motor pencacah) serta menerbitkan rekomendasi tindakan preskriptif ke operator.
 
 ---
 
-## 3. Alur Kerja Sistem (Integrated Conversion Workflow)
+## 2. Arsitektur Integrasi AIoT ke Website
+
+Hubungan transmisi antara instrumentasi fisik, pemrosesan kecerdasan buatan, dan antarmuka web dirancang dalam arsitektur 3-lapisan terpadu:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        ALUR KERJA KONVERSI BIOLOOP (AIoT INTEGRATED)                   │
+│               LAPISAN 1: FISIK & SENSOR IoT (PADA UNIT HARDWARE BIOLOOP)               │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│ [1. Input Food Waste] ──> [2. AI Vision Sorter] ──> [3. Smart Shredder & Mixer]        │
-│   (Resto, Pasar, Kantin)    (Deteksi Plastik/Logam)   (Pencacahan 2-4mm + Water Mix)   │
-│                                                                 │                      │
-│                                                                 ▼                      │
-│ [6. Resource Utilization] <── [5. Output Separator] <── [4. Anaerobic Digester]        │
-│  • Biogas (Kompor/Energi)       • Scrubber (Biogas CH4)    (Sensor: Suhu, pH, Moisture)│
-│  • Pupuk POC (Pertanian)        • Centrifuge (POC Cair)    (AI: Predictive Maintenance)│
-│  • Pupuk POP (Media Tanam)      • Dryer Bed (POP Padat)                                │
+│ [S1] Kamera Edge & Load Cell       : Input pemilahan anorganik & timbangan massa (Kg)  │
+│ [S2] Sensor Reaktor Biologis       : Suhu mesofilik (°C), Probe pH, Kelembaban Slurry │
+│ [S3] Sensor Kapasitas Produk       : Pressure Transducer (Bar) & Level Ultrasonik (POC)│
+│ [S4] Sensor Keandalan Mesin        : Sensor Arus CT Motor Pencacah & Resistensi Aliran │
+└────────────────────────────────────────┬───────────────────────────────────────────────┘
+                                         │ Transmisi Telemetri (MQTT / REST API)
+                                         ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│               LAPISAN 2: CLOUD BACKEND & AI ENGINE (DI WEBSITE / SERVER)               │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ • IoT Gateway & Broker Telemetri   : Injeksi data sensor real-time per detik           │
+│ • AI Vision Classifier Model       : Deteksi kontaminan plastik, sendok, styrofoam     │
+│ • AI Predictive Maintenance Engine : Korelasi multi-sensor, deteksi dini & anomali     │
+│ • Yield & Readiness Predictor      : Estimasi waktu penuh tangki & penjadwalan offtaker│
+└────────────────────────────────────────┬───────────────────────────────────────────────┘
+                                         │ Render Real-Time & Event Dispatch
+                                         ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│               LAPISAN 3: ANTARMUKA WEBSITE BIOLOOP (UI/UX DASHBOARD & APP)             │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ [UI 1] Visualisasi Alur Kerja 5 Tahap Interaktif (Active / Idle / Alert)               │
+│ [UI 2] Hub Monitor Kapasitas Produk (Biogas 88%, POC 92%, POP 75%)                     │
+│ [UI 3] AI Diagnostic & Prescriptive Maintenance Center (Index 0-100% per komponen)    │
+│ [UI 4] Portal Rantai Pasok Hulu & Distribusi Mitra Hilir (Offtaker Auto-Dispatch)      │
+│ [UI 5] Dasbor Dampak SDGs & Neraca Valuasi Ekonomi Sirkular (SDG 7, 9, 12, 13)         │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 4. Struktur Halaman & Fitur Utama Web BioLoop
+## 3. Spesifikasi 5 Modul Utama Website
 
-Mengadaptasi gaya presentasi interaktif **Mobile Frame Shell (iPhone Prototype)** seperti pada referensi `precious-longma-79817e.netlify.app`, dilengkapi tombol toggle ke **Desktop Dashboard Mode** agar fleksibel saat dipresentasikan ke dewan juri.
+Untuk memberikan pengalaman interaktif yang memukau bagi dewan juri dan kemudahan pengoperasian bagi pengelola, web platform BioLoop dibagi ke dalam 5 modul fungsional:
 
-### Layar 1: Dashboard Utama (Executive Overview)
-* **Status Bar & Device Badge:** Status operasional digester (`NORMAL - ONLINE`, `WARNING`, `HARVEST READY`).
-* **Food Waste Intake Counter:** 
-  * Total limbah makanan masuk hari ini (cth: `24.8 Kg`, tren `+15%` dibanding kemarin).
-  * Akumulasi tonase limbah yang berhasil diselamatkan dari TPA.
-* **Live Interactive Circular Flow (Diagram Alur Nyata):**
-  * Animasi interaktif aliran biomassa dari *Input -> Fermentasi -> Separator Output*.
-* **Output Harvest Gauges (3 Kartu Utama):**
-  * 🔥 **Biogas Chamber:** `85%` (Kapasitas `3.8 Kg / 5.2 m³`, status: *Hampir Penuh - Siap Salurkan*).
-  * 💧 **Pupuk Organik Cair (POC):** `72%` (Kapasitas `18 Liter`, status: *Siap Panen via Tap Outlet*).
-  * 🌱 **Pupuk Organik Padat (POP):** `45%` (Kapasitas `10 Kg`, status: *Fase Fermentasi & Pengeringan*).
-* **AI Health Score Badge:** Skor kesehatan mesin & ekosistem biologis (`96/100 - Optimal`).
-* **Notifikasi Cepat / Action Banner:** Indikator pop-up jika ada rekomendasi panen atau pemeliharaan.
+### Modul 1: Interactive Workflow Pipeline (Pemantau Alur Kerja Real-Time)
+Menampilkan status alur pengolahan biomassa secara visual dari hulu ke hilir dengan indikator status aktif:
+* **Tahap 1 – Penerimaan & Pemilahan AI:** Menampilkan tangkapan feed kamera, berat food waste masuk (24.8 Kg hari ini), dan kemurnian bahan organik (96.4%).
+* **Tahap 2 – Pencacahan & Pencampuran Air (Slurry Prep):** Status motor pencacah (arus 1.2A, reduksi partikel 2–4 mm), dan rasio pencampuran air otomatis.
+* **Tahap 3 – Anaerobic Digestion (Reaktor Utama):** Kondisi bakteri metanogen melalui grafik real-time pH (7.1), suhu mesofilik (37.2°C), dan hydraulic retention time (HRT 21 hari).
+* **Tahap 4 – Pemurnian (Scrubbing) Biogas:** Pemantauan penyerapan pengotor $H_2S$ dan $CO_2$ melalui media $Fe_2O_3$ sebelum dialirkan ke gas holder.
+* **Tahap 5 – Separasi Digestate (Fraksi Cair & Padat):** Pemantauan centrifuge dan filter press yang memisahkan ampas digestate menjadi POC cair dan bio-kompos padat POP.
 
----
+### Modul 2: Product Capacity & Readiness Hub (Kesiapan Komoditas)
+Panel khusus yang berorientasi pada nilai ekonomi hasil konversi:
+* **Tangki Biogas (Smart Gas Holder):**
+  * Indikator volume 85% (5.2 $m^3$) pada tekanan 1.8 Bar.
+  * Status: *"Siap Disalurkan / Kapasitas Hampir Penuh"*.
+  * Ekuivalensi energi: Setara 12.4 kWh listrik atau 2.4 Tabung Gas LPG 3 Kg (penghematan Rp 54.000,-).
+* **Tangki Pupuk Organik Cair (POC):**
+  * Sensor level ultrasonik menampilkan kapasitas tangki (18.0 L skala unit atau 460L/500L skala fasilitas komunal).
+  * Indikator mutu: pH 7.2 terstabilisasi, rasio NPK 1.8-1.2-2.1, status: *"Siap Kuras & Kemas Jerigen"*.
+* **Kompartemen Pupuk Organik Padat (POP):**
+  * Sensor timbangan kompartemen menunjukkan 10.2 Kg (45% terisi).
+  * Indikator kematangan: Kadar air $<25\%$, rasio C/N 15:1 seimbang, status: *"Fase Pengeringan / Siap Distribusi Tani"*.
 
-### Layar 2: AIoT Telemetry & Process Monitoring
-Menampilkan data pembacaan sensor fisik secara real-time dengan batas aman visual (*threshold bar*):
+### Modul 3: AI Predictive Maintenance & Health Center
+Nilai kebaruan utama AI di sisi web platform (menjawab 40% bobot penilaian inovasi dan solusi KIMNAS XI):
+* **Skor Kesehatan Sistem (System Health Score):** Indeks gabungan (96/100) dan rincian 4 komponen kritis:
+  1. *Motor Pencacah (94%):* Arus beban 1.2A normal, keausan mata pisau rendah.
+  2. *Ruang Digester (98%):* Ekosistem anaerobik mesofilik stabil, nol risiko asidifikasi.
+  3. *Filter Scrubber $H_2S$ (84%):* Akumulasi durasi pakai media 210 jam, sisa 4 hari sebelum regenerasi.
+  4. *Katup Pipa Gas B-02 (96%):* Tekanan saluran kedap dan stabil.
+* **Kartu Rekomendasi Perawatan Preskriptif (AI Maintenance Advisor):**
+  * **Alert:** Apa yang menyimpang atau berisiko rusak.
+  * **Root Cause (Analisis AI):** Penjelasan kausalitas berdasarkan korelasi multi-sensor.
+  * **Actionable Recommendation:** Langkah tindakan korektif konkret beserta SLA waktu penanganan.
 
-1. **Suhu Digester (Termokopel PT100 / DS18B20):**
-   * *Target Ideal:* 35°C – 38°C (Fase Mesofilik aktif).
-   * *Status:* `37.2°C` (Normal, bar hijau).
-2. **Derajat Keasaman / pH (Industrial pH Probe):**
-   * *Target Ideal:* 6.8 – 7.4 (Kondisi netral seimbang metanogenesis).
-   * *Status:* `7.1` (Seimbang, tidak ada risiko *acidosis*).
-3. **Kadar Air / Slurry Moisture Sensor:**
-   * *Target Ideal:* 75% – 85% untuk fluiditas pencacahan.
-   * *Status:* `78%` (Optimal).
-4. **Tekanan & Kemurnian Gas (Sensor MQ-4 / NDIR Methane + Pressure Transducer):**
-   * *Tekanan Chamber:* `1.8 Bar` (Batas aman maks: 2.5 Bar).
-   * *Konsentrasi CH4:* `68% Metana` (Tinggi, nyala api biru pekat).
-5. **Sub-Sistem Aktuator & AI Status:**
-   * 🤖 **AI Vision Contaminant Detection:** `Aktif` (0 anorganik lolos).
-   * 🔄 **Motor Agitator (Pengaduk Berkala):** `Aktif (Interval 15m)`.
-   * 🛡️ **Safety Relief Valve:** `Standby (Tekanan Normal)`.
-   * 🧪 **Scrubber Filter H2S:** `Kondisi 84% Bersih`.
+### Modul 4: Circular Supply Chain & Offtaker Portal (Hulu ke Hilir)
+Menghubungkan data telemetri kesiapan panen dengan ekosistem mitra:
+* **Pencatatan Mitra Hulu (Pemasok Sampah):**
+  * Kantin Pusat Kampus (142 Kg/minggu).
+  * Resto & Pujasera Mitra (98 Kg/minggu).
+  * Pasar Tradisional Wonokromo (210 Kg/minggu).
+* **Manajemen Mitra Hilir (Offtaker Komoditas):**
+  * Notifikasi otomatis *"Stok Siap Distribusi"* saat volume tangki mencapai $\ge 85\%$.
+  * Kelompok Tani Makmur Lestari (POC cair dialokasikan untuk pemupukan hortikultura).
+  * Dapur Bersama UMKM Binaan (Biogas metana disalurkan melalui jalur pipa terukur).
+  * Kelompok Urban Farming (Kompos padat POP dialokasikan untuk media semai bibit).
 
----
-
-### Layar 3: Hasil Produksi & Manajemen Panen (Resource Center)
-Fokus pada aspek **produk bernilai ekonomi** sesuai arahan essay:
-
-* **Manajemen Biogas:**
-  * Estimasi setara energi: `5.2 m³ ≈ setara 2.4 Tabung Gas LPG 3Kg`.
-  * Estimasi penghematan biaya masak: `Rp54.000,-`.
-  * Tombol interaktif: `[Buka Valve Aliran Kompor]` & `[Ekspor Data Tekanan Gas]`.
-* **Manajemen Pupuk Organik Cair (POC):**
-  * Analisis Nutrisi Terestimasi: Kandungan N (1.8%), P (1.2%), K (2.1%).
-  * Estimasi nilai jual: `18 Liter x Rp15.000 = Rp270.000,-`.
-  * Tombol interaktif: `[Kuras Melalui Outlet Depan]`.
-* **Manajemen Pupuk Organik Padat (POP):**
-  * Rasio C/N seimbang (15:1), siap kemas untuk tanah pertanian/tanaman hias.
-  * Estimasi nilai jual: `10 Kg x Rp8.000 = Rp80.000,-`.
-  * Tombol interaktif: `[Catat Pengambilan Kompos]`.
+### Modul 5: Circular Economy & SDGs Impact Calculator
+Dasbor kalkulasi dampak otomatis untuk memperkuat validitas ilmiah:
+* **Pengurangan Emisi Gas Rumah Kaca:** Mencegah $174.5\text{ kg CO}_2\text{e}$ emisi metana lepas ke atmosfer per 30 hari.
+* **Reduksi Beban TPA:** Menyelamatkan $496\text{ Kg}$ sampah organik dari penumpukan di TPA.
+* **Nilai Valuasi Ekonomi Sirkular:** Akumulasi penghematan LPG + nilai jual POC dan POP (mencapai Rp 405.600,- per batch siklus).
+* **Keselarasan 4 Pilar SDGs:** SDG 7 (Energi Bersih), SDG 9 (Infrastruktur Cerdas), SDG 12 (Produksi Bertanggung Jawab), SDG 13 (Aksi Iklim).
 
 ---
 
-### Layar 4: AI Predictive Maintenance & Diagnostik Kerusakan (*Fitur Unggulan*)
-Fitur cerdas AI yang paling dicari juri untuk membedakan sistem ini dari biodigester biasa:
+## 4. Matriks Logika AI di Website
+### Korelasi Multi-Sensor ke Rekomendasi Preskriptif Otomatis
 
-1. **Prediksi Asidosis / Digester Souring:**
-   * *Analisis AI:* *"Tren pH turun 0.3 dalam 6 jam terakhir terdeteksi karena input limbah buah/jeruk asam berlebih."*
-   * *Rekomendasi Tindakan:* *"Tambahkan 1.5 Liter larutan kapur pertanian / air kelapa terfermentasi dan tahan input asam selama 24 jam."*
-2. **Prediksi Saturasi Filter Scrubber Gas (H2S):**
-   * *Analisis AI:* *"Beban serapan H2S mencapai 82% dari kapasitas media spons oksida besi."*
-   * *Rekomendasi Tindakan:* *"Jadwalkan pencucian/penggantian media filter bio-scrubber dalam 4 hari ke depan untuk mencegah korosi katup."*
-3. **Deteksi Hambatan Pisau Pencacah (Shredder Load Anomaly):**
-   * *Analisis AI:* *"Arus motor pencacah naik 18% dari beban standar. Terindikasi material berserat liat atau pisau butuh pengasahan."*
-   * *Rekomendasi Tindakan:* *"Periksa hopper input pencacah dan lakukan pembersihan mata pisau."*
-4. **Log Servis & Kalibrasi Sensor:**
-   * Jadwal kalibrasi probe pH (tiap 30 hari).
-   * Pemeriksaan seal karet gasket penutup digester.
+| No | Parameter Sensor IoT | Kondisi Terdeteksi di Web | Fokus Analisis AI | Rekomendasi Tindakan Otomatis pada Web |
+|---|---|---|---|---|
+| **1** | Tekanan Gas (Bar) & Flow Meter | Tekanan mencapai ambang atas ($>1.5\text{ Bar}$) | **Kapasitas Produk (Biogas Penuh)** | Notifikasi *"Tangki Biogas Penuh (95%)"*; instruksikan pembukaan katup distribusi ke kompor dapur bersama atau aktifkan kompresor gas cadangan. |
+| **2** | Level Ultrasonik Tangki Cair & Padat | Ketinggian cairan/padatan $\ge 90\%$ kapasitas tangki | **Kapasitas Produk (POC/POP Penuh)** | Notifikasi *"Panen Pupuk Siap"*; aktifkan penjadwalan distribusi otomatis ke mitra kelompok tani dan tahan pemompaan slurry baru sementara. |
+| **3** | Tekanan Gas & Suhu Reaktor | Suhu normal ($37.2^\circ\text{C}$), umpan normal, tapi tekanan gas anjlok ($<0.8\text{ Bar}$) | **Deteksi Kerusakan Alat (Kebocoran/Sumbatan)** | **AI Maintenance Alert:** Indikasi kebocoran pada membran/katup pipa gas B-02. Rekomendasikan inspeksi segel gasket flange segera (SLA: $<2$ jam). |
+| **4** | Sensor pH & Suhu Digester | pH anjlok di bawah 6.2 (*acidosis*) & produksi metana melambat | **Gangguan Proses Biologis** | **AI Process Advisor:** Akumulasi asam lemak volatil (VFA) berlebih. Hentikan umpan food waste sementara dan injeksikan 250g buffer alkali $\text{Ca(OH)}_2$ (air kapur). |
+| **5** | Kamera Visual & Arus Motor Pencacah | Terdeteksi sendok logam/plastik atau arus motor melonjak ($>4.5\text{A}$) | **Pencegahan Kerusakan Mekanis** | **AI Safety Cut-Off:** Hentikan daya motor otomatis dalam 500ms; tampilkan peringatan kontaminan di layar operator dan instruksikan pembersihan mata pisau. |
+| **6** | Waktu Operasional Scrubber ($H_2S$) | Waktu operasional mencapai 210 jam & hambatan aliran naik $0.05\text{ Bar}$ | **Jadwal Perawatan Preventif** | **AI Maintenance Alert:** Media spons oksida besi $\text{Fe}_2\text{O}_3$ mendekati jenuh. Jadwalkan regenerasi/penggantian media filter dalam 4 hari ke depan. |
 
 ---
 
-### Layar 5: Notifikasi & Peringatan Otomatis (Alert Center)
-Daftar notifikasi dengan visual tag prioritas (*High, Medium, Info*):
-* 🔴 **[KAPASITAS KRITIS]** Biogas mencapai 85% — Segera gunakan untuk kompor atau aktifkan sistem penyimpanan cadangan.
-* 🔵 **[PANEN SIAP]** Pupuk cair telah mencapai 18 Liter — Buka keran kuras outlet.
-* 🟡 **[AI REKOMENDASI]** AI Vision mendeteksi kantong plastik di conveyor — Sistem menghentikan hopper selama 5 detik untuk pemilahan manual.
-* 🟢 **[INFO MAINTENANCE]** Siklus pengadukan agitator otomatis berhasil dijalankan (Durasi 3 menit).
+## 5. Kerangka Kolaborasi Pentuple Helix (Pentahelix)
+
+Platform Web BioLoop berfungsi sebagai simpul integrasi (*hub*) pertukaran data, pasokan bahan baku, dan distribusi produk antara lima pemangku kepentingan:
+
+1. **Pemerintah (Regulator & Kebijakan):** KLHK dan Dinas Lingkungan Hidup daerah menggunakan data dasbor SDGs BioLoop untuk pelaporan pengurangan timbulan sampah ke SIPSN.
+2. **Akademisi / Peneliti (Inovasi & Litbang):** Kampus mengoptimalkan formulasi konsorsium mikroba metanogen dan memvalidasi akurasi model AI vision.
+3. **Industri Teknologi / AIoT (Infrastruktur):** Penyedia gateway IoT, cloud broker MQTT, dan sensor industri memastikan uptime sistem 24/7.
+4. **Pemasok Hulu (Restoran, Kantin, Pasar):** Memasok limbah makanan terpilah, mendapatkan insentif pengurangan retribusi sampah daerah.
+5. **Mitra Hilir (Kelompok Tani & UMKM):** Menyerap pupuk bio-organik cair/padat berbiaya terjangkau serta memanfaatkan biogas untuk energi masak murah.
 
 ---
 
-### Layar 6: Dampak Lingkungan & SDGs Counter (Circular Impact)
-Menyediakan bukti terukur untuk makalah/presentasi:
-* 📉 **Pengurangan Emisi Karbon:** Mengurangi `42.6 kg CO2e` emisi metana lepas per minggu.
-* ♻️ **Limbah TPA Tereduksi:** `174 Kg` food waste dalam 7 hari pengoperasian.
-* 🎯 **Alignment SDGs:**
-  * **SDG 7 (Affordable & Clean Energy):** Produksi biogas terdesentralisasi.
-  * **SDG 9 (Industry, Innovation & Infrastructure):** Integrasi AIoT telemetri canggih.
-  * **SDG 12 (Responsible Consumption & Production):** Sirkularitas limbah makanan bernilai guna.
-  * **SDG 13 (Climate Action):** Mitigasi pelepasan gas rumah kaca dari pembusukan anaerobik tak terkontrol di TPA.
+## 6. Panduan Gambar untuk Draf Esai (GAMBAR 1 - 5)
 
----
+Berikut adalah panduan pembuatan ilustrasi seragam berbasis mockup web dan arsitektur sistem BioLoop untuk disisipkan pada naskah esai:
 
-## 5. Spesifikasi Teknis UI/UX Design
-
-* **Palet Warna (Eco-Tech Modern Palette):**
-  * `Primary Brand:` Deep Emerald Forest (`#123924` / `#1F5E3A`) — Merepresentasikan kelestarian alam dan biomassa.
-  * `Accent Fresh:` Bio-Lime Energy (`#8FC93A`) — Indikator sistem aktif, normal, dan pertumbuhan hayati.
-  * `Energy Output:` Amber Gold (`#E3A73B`) — Indikator api biogas dan energi panas bersih.
-  * `Liquid Fertilizer:` Azure Bio-Blue (`#3E7CB8`) — Indikator pupuk organik cair dan hidrologi.
-  * `Solid Compost:` Earth Umber Brown (`#9C6B3E`) — Indikator kompos pupuk padat.
-  * `Alert Red:` Coral Vermilion (`#D95C4A`) — Peringatan overpressure / kontaminan AI.
-  * `Background Surface:` Mint Slate Light (`#F2F6EF` & `#FFFFFF`).
-* **Tipografi:**
-  * *Body & UI Labels:* `Plus Jakarta Sans` (Elegan, modern, dan sangat nyaman dibaca).
-  * *Metrics & Sensor Numbers:* `Space Grotesk` (Kesan presisi industri dan instrumen IoT).
-* **Interaktivitas:**
-  * Setiap kartu, sensor bar, tombol panen, dan notifikasi memiliki status reaksi (*clickable feedback*, toast pop-up, dan transisi antar-layar yang mulus).
-  * Terdapat simulator interaktif: pengguna bisa menekan tombol *"Simulasi Tambah Food Waste"* atau *"Simulasi Panen Gas"* untuk melihat perubahan grafik secara langsung di hadapan juri.
-
----
-
-## 6. Rencana Implementasi Bertahap
-
-| Fase | Target Luaran | Durasi |
-|---|---|---|
-| **Fase 1: Desain & PRD** | Finalisasi konsep, wireframe, & arsitektur sistem web prototype | Selesai |
-| **Fase 2: Pembuatan Prototype Interaktif** | Membangun UI Web berbasis Vanilla HTML/CSS/JS (Model Phone Frame + Dashboard) | Tahap Berikutnya |
-| **Fase 3: Simulasi Data Sensor & Engine AI** | Menghubungkan logika telemetri simulasi (Suhu, pH, Level Gas) & diagnosa AI | Tahap Berikutnya |
-| **Fase 4: Testing & Deploy Netlify/Vercel** | Uji coba interaktivitas, optimasi visual presentasi juri, dan publikasi URL | Tahap Akhir |
+* **GAMBAR 1 (PROSES ALUR KERJA):** Diagram alur horizontal 5 tahap fisik di bagian bawah (*Pemilahan $\rightarrow$ Pencacahan $\rightarrow$ Digester $\rightarrow$ Scrubber $\rightarrow$ Separator*) yang disinkronkan dengan lapisan pemantauan AIoT Web di bagian atas.
+* **GAMBAR 2 (IMPLEMENTASI SISTEM):** Mockup UI Dashboard Web BioLoop secara utuh (menampilkan circular gauge $CH_4$, kartu kapasitas Biogas/POC/POP, sparkline sensor, dan kartu rekomendasi preskriptif AI).
+* **GAMBAR 3 (KELEBIHAN KEBARUAN):** Matriks komparasi visual arsitektur berlapis BioLoop (*3 Produk + AI Predictive Maintenance*) dibandingkan biodigester konvensional yang beroperasi tanpa telemetri (*black box*).
+* **GAMBAR 4 (CIRCULAR ECONOMY & SDGS):** Diagram melingkar tertutup (*closed-loop*) dari food waste kuliner $\rightarrow$ BioLoop AIoT $\rightarrow$ Biogas (SDG 7), AIoT Web (SDG 9), Pupuk Organik (SDG 12), Reduksi Metana TPA (SDG 13).
+* **GAMBAR 5 (KOLABORASI PENTUPLE HELIX):** Skema kemitraan 5 elemen (Pemerintah, Kampus, Industri AIoT, Pemasok Hulu, dan Mitra Hilir) yang terhubung dalam satu portal web terpadu.

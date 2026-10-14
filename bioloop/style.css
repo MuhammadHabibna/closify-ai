@@ -2216,7 +2216,362 @@ body {
   box-shadow: 0 3px 12px rgba(5, 150, 105, 0.25);
 }
 
+/* ================= 5-STAGE WORKFLOW PIPELINE (MODUL 1) ================= */
+.workflow-5stages-card {
+  background: #FFFFFF;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stage-pipeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.stage-pipe-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface-muted);
+  border-radius: 9px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.stage-pipe-item.active {
+  background: #F0FDF4;
+  border-color: rgba(5, 150, 105, 0.25);
+}
+
+.stage-pipe-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-border);
+  color: var(--ink-secondary);
+  font-size: 0.64rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.stage-pipe-item.active .stage-pipe-num {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+}
+
+.stage-pipe-info {
+  flex: 1;
+}
+
+.stage-pipe-title {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+.stage-pipe-meta {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--ink-secondary);
+  margin-top: 1px;
+}
+
+.stage-pipe-badge {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 5px;
+  flex: none;
+}
+
+.badge-active { background: var(--green-bg); color: var(--green-primary); }
+.badge-standby { background: var(--surface-border); color: var(--ink-secondary); }
+
+/* ================= 4-COMPONENT HEALTH BREAKDOWN (MODUL 3) ================= */
+.comp-health-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.comp-health-card {
+  background: #FFFFFF;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease;
+}
+
+.comp-health-card:hover {
+  transform: translateY(-1px);
+}
+
+.comp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comp-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comp-score-pct {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.comp-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+.comp-meta {
+  font-size: 0.6rem;
+  color: var(--ink-faint);
+  line-height: 1.25;
+}
+
+/* ================= PRESCRIPTIVE AI RECOMMENDATION BLOCKS ================= */
+.prescriptive-rootcause {
+  background: #F8FAFC;
+  border-left: 3px solid #64748B;
+  padding: 6px 9px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.64rem;
+  color: #334155;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.prescriptive-rootcause strong {
+  color: #0F172A;
+}
+
+.prescriptive-action {
+  background: var(--surface-muted);
+  border-left: 3px solid var(--brand-primary);
+  padding: 6px 9px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.64rem;
+  color: var(--ink-primary);
+  line-height: 1.35;
+}
+
+.prescriptive-action.action-alert {
+  background: #FEF2F2;
+  border-left-color: var(--red-primary);
+  color: var(--red-dark);
+}
+
+/* ================= SUPPLY CHAIN & OFFTAKER PORTAL (MODUL 4) ================= */
+.supply-chain-section {
+  margin-top: 14px;
+}
+
+.supply-status-pill {
+  font-size: 0.6rem;
+  background: var(--brand-bg);
+  color: var(--brand-primary);
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.supply-card {
+  background: #FFFFFF;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.supply-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.supply-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.supply-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.supply-card-header h4 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--ink-primary);
+}
+
+.supply-sub {
+  font-size: 0.6rem;
+  color: var(--ink-faint);
+  display: block;
+}
+
+.supply-total-badge {
+  font-size: 0.64rem;
+  font-weight: 700;
+  background: var(--surface-muted);
+  color: var(--ink-secondary);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.supply-alert-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: var(--blue-bg);
+  color: var(--blue-primary);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.provider-list,
+.offtaker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.provider-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: var(--surface-muted);
+  border-radius: 8px;
+}
+
+.provider-name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  display: block;
+}
+
+.provider-type {
+  font-size: 0.58rem;
+  color: var(--ink-secondary);
+  display: block;
+}
+
+.provider-volume {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--brand-dark);
+}
+
+.offtaker-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: var(--surface-muted);
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.offtaker-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.offtaker-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 5px;
+  flex: none;
+}
+
+.tag-blue { background: var(--blue-bg); color: var(--blue-primary); }
+.tag-amber { background: var(--amber-bg); color: var(--amber-primary); }
+.tag-green { background: var(--green-bg); color: var(--green-primary); }
+
+.offtaker-name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  display: block;
+}
+
+.offtaker-detail {
+  font-size: 0.58rem;
+  color: var(--ink-secondary);
+  display: block;
+}
+
+.offtaker-btn {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--surface-border);
+  background: #FFFFFF;
+  color: var(--brand-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: none;
+}
+
+.offtaker-btn:hover {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  border-color: var(--brand-primary);
+}
+
 /* ================= FULL DASHBOARD EXPANDED MODE ================= */
+body.mode-desktop-active .comp-health-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+body.mode-desktop-active .supply-chain-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
 body.mode-desktop-active .phone-shell {
   width: 920px;
   height: auto;
