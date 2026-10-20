@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowchart Resmi Closify AI — Publikasi Ilmiah & Draf Esai KIMNAS 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Mermaid.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-dark: #CBD5E1;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --brand: #4F46E5;
+      --emerald: #059669;
+      --amber: #D97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    /* Header Toolbar */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      padding: 18px 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .header-info h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: #EFF6FF;
+      color: var(--brand);
+      border: 1px solid #BFDBFE;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .header-info p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--border-dark);
+      background: #FFFFFF;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+    }
+
+    .btn.primary {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+    }
+
+    .btn.primary:hover {
+      background: #1E293B;
+    }
+
+    /* Diagram Section Card */
+    .diagram-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-title-group h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .card-title-group span {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .dimension-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Diagram Viewer Area */
+    .diagram-canvas {
+      padding: 28px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #FFFFFF;
+      overflow-x: auto;
+    }
+
+    .mermaid {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Scientific Essay Caption Box */
+    .card-caption {
+      padding: 12px 20px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-caption strong {
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    /* Copy Code Accordion */
+    .code-accordion {
+      border-top: 1px dashed var(--border);
+      background: #FAFAFA;
+      padding: 12px 20px;
+    }
+
+    .code-accordion summary {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--brand);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .code-accordion pre {
+      margin-top: 10px;
+      padding: 12px;
+      background: #0F172A;
+      color: #F8FAFC;
+      font-size: 0.72rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      line-height: 1.45;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #FFFFFF;
+      }
+      .header-bar, .code-accordion, .btn {
+        display: none !important;
+      }
+      .diagram-card {
+        border: 1px solid #94A3B8;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Action Toolbar -->
+    <header class="header-bar">
+      <div class="header-info">
+        <h1>
+          Flowchart Resmi Closify AI
+          <span class="badge-tag">KIMNAS UNESA 2026</span>
+        </h1>
+        <p>Format diagram proporsional untuk naskah esai ilmiah (rasio seimbang, terbaca jelas, dan siap diexport/screenshot).</p>
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn" onclick="window.print()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print / PDF
+        </button>
+        <a href="/" class="btn primary">
+          Buka Web Widget
+        </a>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         FLOWCHART 1: ALUR INTERAKSI & KONVERSI PENJUALAN KONSUMEN
+         ======================================================== -->
+    <section class="diagram-card" id="flowchart-1">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2>Gambar 1. Flowchart Alur Interaksi Conversational Sales & Closing (User Journey)</h2>
+          <span>Fokus: Memotong friction point checkout multi-tab melalui Zero Return Protocol & Native In-Chat QRIS</span>
+        </div>
+        <span class="dimension-badge">Proporsi Esai: Terbaca Jelas</span>
+      </div>
+
+      <div class="diagram-canvas">
+        <div class="mermaid">
+flowchart TD
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
+    classDef process fill:#F8FAFC,stroke:#94A3B8,color:#0F172A,stroke-width:1.5px;
+    classDef decision fill:#FFFBEB,stroke:#F59E0B,color:#78350F,stroke-width:2px;
+    classDef aiStep fill:#EFF6FF,stroke:#3B82F6,color:#1E3A8A,stroke-width:1.5px;
+    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2px;
+    classDef fail fill:#FEF2F2,stroke:#EF4444,color:#7F1D1D,stroke-width:1.5px;
+
+    Start([Mulai: Calon Pembeli Kunjungi<br/>Situs Web D2C Arunika]):::startEnd --> OpenWidget[Buka Floating Chat Widget<br/>Closify AI di Web]:::process
+    OpenWidget --> UserChat[/Konsumen Bertanya Produk,<br/>Ketersediaan Varian, atau Promo/]:::process
+
+    UserChat --> CheckStock[AI Panggil Tool: check_inventory<br/>Kueri Stok Real-Time dari Database]:::aiStep
+    CheckStock --> StockCheck{Stok<br/>Tersedia?}:::decision
+
+    StockCheck -- "Tidak" --> StockOut[Tawarkan Alternatif Varian /<br/>Daftar Notifikasi Restock]:::fail
+    StockOut --> EndAlt([Selesai / Lanjut Konsultasi]):::startEnd
+
+    StockCheck -- "Ya" --> FitCheck{Kategori Fesyen<br/>Rentan Ukuran?}:::decision
+
+    FitCheck -- "Ya" --> ZeroReturn[<b>Zero Return Protocol</b><br/>AI Inisiasi Konsultasi TB & BB]:::aiStep
+    ZeroReturn --> BodyInput[/Konsumen Masukkan Tinggi & Berat Badan/]:::process
+    BodyInput --> CalcSize[Cocokkan Matriks Size Chart Deterministik<br/>Rekomendasikan Ukuran Akurat: S/M/L/XL]:::aiStep
+    CalcSize --> GreenDelivery
+
+    FitCheck -- "Tidak" --> GreenDelivery[<b>Green Logistics Nudge</b><br/>Tawarkan Opsi Pengiriman Rendah Emisi]:::process
+
+    GreenDelivery --> UserAgree{Konsumen Setuju<br/>Checkout?}:::decision
+
+    UserAgree -- "Ragu / Batal" --> HoldState[Simpan Riwayat Keranjang &<br/>Lanjutkan Pendampingan Ramah]:::process
+    HoldState --> EndAlt
+
+    UserAgree -- "Ya (Setuju)" --> ExecPay[<b>Frictionless In-Chat Checkout</b><br/>AI Panggil Tool: generate_payment]:::aiStep
+    ExecPay --> RenderQRIS[Terbitkan Kartu Tagihan & Dynamic QRIS<br/>Langsung di Jendela Obrolan]:::success
+    RenderQRIS --> ScanPay[/Konsumen Scan QRIS via Mobile Banking /<br/>E-Wallet: BCA, GoPay, ShopeePay/]:::process
+    ScanPay --> PayVerify{Verifikasi Webhook<br/>Settlement Lunas?}:::decision
+
+    PayVerify -- "Timeout / Batal" --> ExpireReminder[Notifikasi QR Kedaluwarsa &<br/>Kirim Tautan Pembaruan Tagihan]:::fail
+    ExpireReminder --> EndAlt
+
+    PayVerify -- "Ya (Lunas)" --> OrderConfirmed[<b>Pesanan Terkonfirmasi Otomatis</b><br/>Status: Lunas & Terjadwal Kirim]:::success
+    OrderConfirmed --> EndSuccess([Selesai: Transaksi Sukses<br/>Tanpa Beralih Tab / Aplikasi]):::startEnd
+        </div>
+      </div>
+
+      <div class="card-caption">
+        <strong>Deskripsi Naskah Esai:</strong>
+        <span>Diagram alur percakapan interaktif menunjukkan bagaimana Closify AI memandu konsumen dari eksplorasi katalog, mitigasi risiko salah ukuran (*Zero Return Protocol*), edukasi logistik hijau, hingga penyelesaian transaksi instan via Dynamic QRIS tanpa meninggalkan halaman website.</span>
+      </div>
+
+      <details class="code-accordion">
+        <summary>Salin Kode Mermaid (Untuk Markdown / Notion / Word)</summary>
+        <pre><code>flowchart TD
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
+    classDef process fill:#F8FAFC,stroke:#94A3B8,color:#0F172A,stroke-width:1.5px;
+    classDef decision fill:#FFFBEB,stroke:#F59E0B,color:#78350F,stroke-width:2px;
+    classDef aiStep fill:#EFF6FF,stroke:#3B82F6,color:#1E3A8A,stroke-width:1.5px;
+    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2px;
+    classDef fail fill:#FEF2F2,stroke:#EF4444,color:#7F1D1D,stroke-width:1.5px;
+
+    Start([Mulai: Calon Pembeli Kunjungi<br/>Situs Web D2C Arunika]):::startEnd --> OpenWidget[Buka Floating Chat Widget<br/>Closify AI di Web]:::process
+    OpenWidget --> UserChat[/Konsumen Bertanya Produk,<br/>Ketersediaan Varian, atau Promo/]:::process
+
+    UserChat --> CheckStock[AI Panggil Tool: check_inventory<br/>Kueri Stok Real-Time dari Database]:::aiStep
+    CheckStock --> StockCheck{Stok<br/>Tersedia?}:::decision
+
+    StockCheck -- "Tidak" --> StockOut[Tawarkan Alternatif Varian /<br/>Daftar Notifikasi Restock]:::fail
+    StockOut --> EndAlt([Selesai / Lanjut Konsultasi]):::startEnd
+
+    StockCheck -- "Ya" --> FitCheck{Kategori Fesyen<br/>Rentan Ukuran?}:::decision
+
+    FitCheck -- "Ya" --> ZeroReturn[<b>Zero Return Protocol</b><br/>AI Inisiasi Konsultasi TB & BB]:::aiStep
+    ZeroReturn --> BodyInput[/Konsumen Masukkan Tinggi & Berat Badan/]:::process
+    BodyInput --> CalcSize[Cocokkan Matriks Size Chart Deterministik<br/>Rekomendasikan Ukuran Akurat: S/M/L/XL]:::aiStep
+    CalcSize --> GreenDelivery
+
+    FitCheck -- "Tidak" --> GreenDelivery[<b>Green Logistics Nudge</b><br/>Tawarkan Opsi Pengiriman Rendah Emisi]:::process
+
+    GreenDelivery --> UserAgree{Konsumen Setuju<br/>Checkout?}:::decision
+
+    UserAgree -- "Ragu / Batal" --> HoldState[Simpan Riwayat Keranjang &<br/>Lanjutkan Pendampingan Ramah]:::process
+    HoldState --> EndAlt
+
+    UserAgree -- "Ya (Setuju)" --> ExecPay[<b>Frictionless In-Chat Checkout</b><br/>AI Panggil Tool: generate_payment]:::aiStep
+    ExecPay --> RenderQRIS[Terbitkan Kartu Tagihan & Dynamic QRIS<br/>Langsung di Jendela Obrolan]:::success
+    RenderQRIS --> ScanPay[/Konsumen Scan QRIS via Mobile Banking /<br/>E-Wallet: BCA, GoPay, ShopeePay/]:::process
+    ScanPay --> PayVerify{Verifikasi Webhook<br/>Settlement Lunas?}:::decision
+
+    PayVerify -- "Timeout / Batal" --> ExpireReminder[Notifikasi QR Kedaluwarsa &<br/>Kirim Tautan Pembaruan Tagihan]:::fail
+    ExpireReminder --> EndAlt
+
+    PayVerify -- "Ya (Lunas)" --> OrderConfirmed[<b>Pesanan Terkonfirmasi Otomatis</b><br/>Status: Lunas & Terjadwal Kirim]:::success
+    OrderConfirmed --> EndSuccess([Selesai: Transaksi Sukses<br/>Tanpa Beralih Tab / Aplikasi]):::startEnd</code></pre>
+      </details>
+    </section>
+
+    <!-- ========================================================
+         FLOWCHART 2: ALUR ARSITEKTUR SISTEM & PENALARAN AI ENGINE
+         ======================================================== -->
+    <section class="diagram-card" id="flowchart-2">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2>Gambar 2. Flowchart Arsitektur Sistem & Siklus Penalaran AI Engine (ReAct Framework)</h2>
+          <span>Fokus: Pemisahan tegas antarmuka klien, orkestrasi FastAPI, inferensi Gemini 3.5, dan eksekusi alat deterministik</span>
+        </div>
+        <span class="dimension-badge">Proporsi Esai: Terbaca Jelas</span>
+      </div>
+
+      <div class="diagram-canvas">
+        <div class="mermaid">
+flowchart TD
+    classDef client fill:#F1F5F9,stroke:#64748B,color:#0F172A,stroke-width:1.5px;
+    classDef orchestrator fill:#EEF2FF,stroke:#6366F1,color:#1E1B4B,stroke-width:2px;
+    classDef ai fill:#FAF5FF,stroke:#9333EA,color:#3B0764,stroke-width:2px;
+    classDef tool fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:1.5px;
+    classDef guard fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:1.5px;
+    classDef terminal fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
+
+    StartNode([Input Teks Konsumen]):::terminal --> ClientLayer["Client Layer (Web Widget)<br/>Tangkap Input, Session ID dan Device Context"]:::client
+
+    ClientLayer --> APIGateway["FastAPI Orchestrator Gateway<br/>Autentikasi Request, CORS dan Rate Limiter"]:::orchestrator
+
+    APIGateway --> SessionMemory["Redis Sliding Window Buffer<br/>Ambil 10-15 Turn Obrolan Sebelumnya"]:::orchestrator
+
+    SessionMemory --> PromptOrchestrator["Context Assembler dan System Prompt<br/>Injeksi Persona Sales, Brand Voice dan Tool Schema"]:::orchestrator
+
+    PromptOrchestrator --> GeminiModel["Google Gemini 3.5 Flash Lite<br/>Inferensi Penalaran dan Context Caching Aktif"]:::ai
+
+    GeminiModel --> NeedToolDecision{"Memerlukan<br/>Eksekusi Tool?"}:::guard
+
+    NeedToolDecision -- "Tidak (Percakapan)" --> TextFormatting["Rangkai Respon Teks Ramah dan Persuasif"]:::orchestrator
+
+    NeedToolDecision -- "Ya (Aksi Transaksi)" --> ToolDispatcher["Native Function Calling Dispatcher<br/>Petakan Parameter Argumen ke Fungsi Python"]:::orchestrator
+
+    subgraph DeterministicTools ["LAPISAN TOOL DETERMINISTIK DAN INTEGRASI"]
+        direction TB
+        T1["Tool 1: check_inventory_and_specs<br/>Kueri Stok Riil dan Deskripsi Bahan"]:::tool
+        T2["Tool 2: recommend_size<br/>Validasi TB/BB vs Size Chart Matriks"]:::tool
+        T3["Tool 3: generate_in_chat_payment<br/>Penerbitan Order dan Request Dynamic QRIS"]:::tool
+    end
+
+    ToolDispatcher --> T1
+    ToolDispatcher --> T2
+    ToolDispatcher --> T3
+
+    T1 --> ExternalServices[("Database PostgreSQL, Biteship, dan Midtrans API")]:::client
+    T2 --> ExternalServices
+    T3 --> ExternalServices
+
+    ExternalServices --> RawPayload["Kembalikan Hasil Kueri JSON Deterministik"]:::tool
+
+    RawPayload --> GuardrailCheck["Guardrail dan Strict Pydantic Validator<br/>Aturan Mutlak: Zero Financial Hallucination"]:::guard
+
+    GuardrailCheck --> SynthesizeResponse["Gemini Rangkai Jawaban Final Berdasarkan Data Faktual"]:::ai
+
+    TextFormatting --> ResponseDispatcher
+    SynthesizeResponse --> ResponseDispatcher["Response Dispatcher<br/>Paketkan Teks Narasi dan Kartu UI Interaktif"]:::orchestrator
+
+    ResponseDispatcher --> ClientRender["Client UI Rendering<br/>Render Bubble Obrolan, Kartu Varian dan QRIS"]:::client
+    ClientRender --> EndNode([Selesai: Respons Muncul Real-Time di Layar Klien]):::terminal
+        </div>
+      </div>
+
+      <div class="card-caption">
+        <strong>Deskripsi Naskah Esai:</strong>
+        <span>Arsitektur berlapis Closify AI menunjukkan siklus ReAct (Reasoning and Acting) di mana model bahasa besar (Gemini 3.5 Flash Lite) dipagari oleh guardrail deterministik, menjamin tidak ada manipulasi harga atau halusinasi finansial dalam transaksi.</span>
+      </div>
+
+      <details class="code-accordion">
+        <summary>Salin Kode Mermaid (Untuk Markdown / Notion / Word)</summary>
+        <pre><code>flowchart TD
+    classDef client fill:#F1F5F9,stroke:#64748B,color:#0F172A,stroke-width:1.5px;
+    classDef orchestrator fill:#EEF2FF,stroke:#6366F1,color:#1E1B4B,stroke-width:2px;
+    classDef ai fill:#FAF5FF,stroke:#9333EA,color:#3B0764,stroke-width:2px;
+    classDef tool fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:1.5px;
+    classDef guard fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:1.5px;
+    classDef terminal fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
+
+    StartNode([Input Teks Konsumen]):::terminal --> ClientLayer["Client Layer (Web Widget)<br/>Tangkap Input, Session ID dan Device Context"]:::client
+
+    ClientLayer --> APIGateway["FastAPI Orchestrator Gateway<br/>Autentikasi Request, CORS dan Rate Limiter"]:::orchestrator
+
+    APIGateway --> SessionMemory["Redis Sliding Window Buffer<br/>Ambil 10-15 Turn Obrolan Sebelumnya"]:::orchestrator
+
+    SessionMemory --> PromptOrchestrator["Context Assembler dan System Prompt<br/>Injeksi Persona Sales, Brand Voice dan Tool Schema"]:::orchestrator
+
+    PromptOrchestrator --> GeminiModel["Google Gemini 3.5 Flash Lite<br/>Inferensi Penalaran dan Context Caching Aktif"]:::ai
+
+    GeminiModel --> NeedToolDecision{"Memerlukan<br/>Eksekusi Tool?"}:::guard
+
+    NeedToolDecision -- "Tidak (Percakapan)" --> TextFormatting["Rangkai Respon Teks Ramah dan Persuasif"]:::orchestrator
+
+    NeedToolDecision -- "Ya (Aksi Transaksi)" --> ToolDispatcher["Native Function Calling Dispatcher<br/>Petakan Parameter Argumen ke Fungsi Python"]:::orchestrator
+
+    subgraph DeterministicTools ["LAPISAN TOOL DETERMINISTIK DAN INTEGRASI"]
+        direction TB
+        T1["Tool 1: check_inventory_and_specs<br/>Kueri Stok Riil dan Deskripsi Bahan"]:::tool
+        T2["Tool 2: recommend_size<br/>Validasi TB/BB vs Size Chart Matriks"]:::tool
+        T3["Tool 3: generate_in_chat_payment<br/>Penerbitan Order dan Request Dynamic QRIS"]:::tool
+    end
+
+    ToolDispatcher --> T1
+    ToolDispatcher --> T2
+    ToolDispatcher --> T3
+
+    T1 --> ExternalServices[("Database PostgreSQL, Biteship, dan Midtrans API")]:::client
+    T2 --> ExternalServices
+    T3 --> ExternalServices
+
+    ExternalServices --> RawPayload["Kembalikan Hasil Kueri JSON Deterministik"]:::tool
+
+    RawPayload --> GuardrailCheck["Guardrail dan Strict Pydantic Validator<br/>Aturan Mutlak: Zero Financial Hallucination"]:::guard
+
+    GuardrailCheck --> SynthesizeResponse["Gemini Rangkai Jawaban Final Berdasarkan Data Faktual"]:::ai
+
+    TextFormatting --> ResponseDispatcher
+    SynthesizeResponse --> ResponseDispatcher["Response Dispatcher<br/>Paketkan Teks Narasi dan Kartu UI Interaktif"]:::orchestrator
+
+    ResponseDispatcher --> ClientRender["Client UI Rendering<br/>Render Bubble Obrolan, Kartu Varian dan QRIS"]:::client
+    ClientRender --> EndNode([Selesai: Respons Muncul Real-Time di Layar Klien]):::terminal</code></pre>
+      </details>
+    </section>
+
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      fontFamily: 'Plus Jakarta Sans, sans-serif',
+      fontSize: 13,
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 35,
+        rankSpacing: 40
+      }
+    });
+  </script>
+</body>
+</html>
