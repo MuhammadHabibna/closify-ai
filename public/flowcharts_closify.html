@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flowchart Ringkas & Presisi Closify AI — Publikasi Ilmiah & Esai KIMNAS 2026</title>
+  <title>Flowchart Resmi Closify AI — Publikasi Ilmiah & Esai KIMNAS 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
@@ -39,7 +39,7 @@
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
@@ -164,6 +164,12 @@
       border-radius: 4px;
     }
 
+    .dimension-badge.blue {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border-color: #BFDBFE;
+    }
+
     /* Diagram Viewer Area */
     .diagram-canvas {
       padding: 24px 16px;
@@ -176,9 +182,44 @@
 
     .mermaid {
       width: 100%;
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
       text-align: center;
+    }
+
+    /* Force larger text and crisp node rendering in SVG */
+    .mermaid svg {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 15px !important;
+      max-width: 100% !important;
+      height: auto !important;
+      display: inline-block;
+    }
+
+    .mermaid .nodeLabel {
+      font-size: 14.5px !important;
+      line-height: 1.45 !important;
+      font-weight: 500 !important;
+    }
+
+    .mermaid .nodeLabel b, 
+    .mermaid .nodeLabel strong {
+      font-size: 15.5px !important;
+      font-weight: 700 !important;
+    }
+
+    .mermaid .nodeLabel code {
+      background: #EFF6FF;
+      color: #1E40AF;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+    }
+
+    .mermaid .edgeLabel {
+      font-size: 13px !important;
+      font-weight: 700 !important;
     }
 
     /* Scientific Essay Caption Box */
@@ -249,10 +290,10 @@
     <header class="header-bar">
       <div class="header-info">
         <h1>
-          Flowchart Ringkas & Presisi Closify AI
-          <span class="badge-tag">Versi Esai KIMNAS 2026</span>
+          Flowchart Resmi Closify AI
+          <span class="badge-tag">Versi Naskah KIMNAS 2026</span>
         </h1>
-        <p>Struktur diagram telah diringkas padat tanpa menghilangkan informasi inti, tinggi seimbang, dan teks besar terbaca di naskah ilmiah.</p>
+        <p>Diagram dipadatkan agar kotak besar, teks sangat terbaca jelas, dan tidak memanjang ke bawah.</p>
       </div>
       <div class="toolbar-actions">
         <button class="btn" onclick="window.print()">
@@ -270,105 +311,155 @@
     </header>
 
     <!-- ========================================================
-         FLOWCHART 1: ALUR INTERAKSI & KONVERSI PENJUALAN KONSUMEN (RINGKAS)
+         OPSI 1: FLOWCHART 1 VERSI UTAMA (4-TAHAP KOMPAK, KOTAK BESAR, TEKS SANGAT TERBACA)
          ======================================================== -->
-    <section class="diagram-card" id="flowchart-1">
+    <section class="diagram-card" id="flowchart-1-linear">
       <div class="card-header">
         <div class="card-title-group">
-          <h2>Gambar 1. Flowchart Alur Konversi Penjualan & Closing Konsumen (User Journey)</h2>
-          <span>Integrasi utuh: Pengecekan Stok Real-Time, Zero Return Protocol, Green Logistics, dan In-Chat QRIS</span>
+          <h2>Gambar 1. Flowchart Alur Konversi Penjualan & Closing Transaksi Konsumen</h2>
+          <span>Format Utama Rekomendasi Esai: Kotak ekstra lebar, teks besar & tajam, tinggi hemat (±480px, pas untuk 1/2 halaman A4)</span>
         </div>
-        <span class="dimension-badge">Tinggi Pas & Terbaca Jelas</span>
+        <span class="dimension-badge">Kotak Besar & Sangat Terbaca</span>
       </div>
 
       <div class="diagram-canvas">
         <div class="mermaid">
 flowchart TD
-    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
-    classDef process fill:#F8FAFC,stroke:#64748B,color:#0F172A,stroke-width:1.5px;
-    classDef decision fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:2px;
-    classDef aiStep fill:#EFF6FF,stroke:#3B82F6,color:#1E3A8A,stroke-width:1.5px;
-    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2px;
-    classDef altPath fill:#FEF2F2,stroke:#EF4444,color:#7F1D1D,stroke-width:1.5px;
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef stepCard fill:#FFFFFF,stroke:#2563EB,color:#0F172A,stroke-width:2px;
+    classDef successCard fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2.5px,font-weight:bold;
 
-    Start(["Mulai: Calon Pembeli Kunjungi Web D2C dan Buka Widget Closify AI"]):::startEnd --> Inquiry["Konsumen Tanyakan Kebutuhan Produk, Varian, atau Rekomendasi"]:::process
+    Start(["<b>Mulai:</b> Calon Pembeli Membuka Chat Widget Closify AI di Web Toko"]):::startEnd
+    
+    Step1["<b>1. Eksplorasi Produk & Validasi Stok Riil Toko</b><br/>• Konsumen menanyakan katalog, varian warna, bahan, atau ketersediaan produk<br/>• AI mengeksekusi kueri deterministik via <code>check_inventory</code> langsung ke database<br/>• <i>Fallback Cerdas:</i> Jika varian habis, AI otomatis merekomendasikan alternatif ready-stock"]:::stepCard
+    
+    Step2["<b>2. Zero Return Protocol (Konsultasi Ukuran Presisi)</b><br/>• AI memandu konsultasi postur dengan menanyakan Tinggi Badan & Berat Badan (TB/BB)<br/>• Pencocokan presisi matriks size chart toko via <code>recommend_size</code> untuk cegah salah beli<br/>• Memangkas risiko pengembalian barang (return rate) hingga 0%"]:::stepCard
+    
+    Step3["<b>3. Green Logistics Nudge & Ringkasan Checkout</b><br/>• AI merekomendasikan opsi kurir rendah emisi karbon (Green Logistics Route)<br/>• Sistem menghitung ongkos kirim faktual dan menyajikan ringkasan rincian belanja<br/>• Konsumen mengonfirmasi persetujuan pembelian secara langsung di ruang obrolan"]:::stepCard
+    
+    Step4["<b>4. Native In-Chat Closing via Dynamic QRIS & Settlement</b><br/>• AI menerbitkan kartu invoice pembayaran Dynamic QRIS Midtrans langsung di chat<br/>• Pembeli memindai QRIS via m-Banking atau e-Wallet tanpa berpindah tab/halaman<br/>• Webhook payment gateway otomatis memvalidasi status pelunasan secara real-time"]:::successCard
+    
+    Done(["<b>Selesai:</b> Transaksi Lunas Terverifikasi & Sistem Siapkan Jadwal Pengiriman"]):::startEnd
 
-    Inquiry --> StockCheck["1. Pengecekan Inventaris Real-Time<br/>AI Panggil Tool check_inventory ke Database Toko"]:::aiStep
-    StockCheck --> IsStock{"Stok<br/>Tersedia?"}:::decision
-
-    IsStock -- "Tidak" --> OutOfStock["Tawarkan Alternatif Produk atau Notifikasi Restock"]:::altPath
-    OutOfStock --> EndWait(["Selesai / Lanjut Konsultasi"]):::startEnd
-
-    IsStock -- "Ya" --> ConsultPhase["2. Konsultasi Cerdas dan Nudge Keberlanjutan<br/>• Zero Return Protocol: Validasi TB/BB vs Size Chart<br/>• Green Logistics: Penawaran Opsi Pengiriman Rendah Emisi"]:::aiStep
-
-    ConsultPhase --> IsCheckout{"Setuju<br/>Checkout?"}:::decision
-
-    IsCheckout -- "Ragu / Batal" --> HoldCart["Simpan Riwayat Keranjang dan Berikan Pendampingan Ramah"]:::process
-    HoldCart --> EndWait
-
-    IsCheckout -- "Ya (Setuju)" --> InChatPay["3. Frictionless In-Chat Native Checkout<br/>• AI Panggil generate_payment dan Terbitkan Dynamic QRIS di Chat<br/>• Konsumen Pindai QRIS via Mobile Banking atau E-Wallet"]:::aiStep
-
-    InChatPay --> IsSettled{"Webhook:<br/>Status Lunas?"}:::decision
-
-    IsSettled -- "Batal / Expire" --> ExpireNotice["Notifikasi QR Kedaluwarsa dan Opsi Refresh Tagihan"]:::altPath
-    ExpireNotice --> EndWait
-
-    IsSettled -- "Ya (Lunas)" --> SuccessOrder["Pesanan Terkonfirmasi Otomatis<br/>Status Berubah: Lunas dan Paket Terjadwal Kirim"]:::success
-    SuccessOrder --> EndSuccess(["Selesai: Transaksi Berhasil Tanpa Pindah Tab"]):::startEnd
+    Start --> Step1
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Done
         </div>
       </div>
 
       <div class="card-caption">
-        <strong>Deskripsi Naskah Esai:</strong>
-        <span>Diagram alur interaksi terpadu menunjukkan siklus penutupan penjualan otomatis Closify AI: dari validasi ketersediaan barang riil, pencegahan salah ukuran lewat Zero Return Protocol, dorongan logistik hijau, hingga transaksi tuntas melalui Dynamic QRIS instan di jendela obrolan.</span>
+        <strong>Keunggulan di Naskah Esai:</strong>
+        <span>Diagram ini dirancang tanpa pembagian kolom yang menyempit dan tanpa garis melingkar jauh. Setiap kotak memiliki lebar proporsional penuh, dengan hierarki tipografi tegas sehingga teks terbaca dengan sangat jelas bahkan saat dicetak atau diperkecil di naskah ilmiah.</span>
       </div>
 
       <details class="code-accordion">
-        <summary>Salin Kode Mermaid Gambar 1 (Untuk Markdown / Word / Notion)</summary>
+        <summary>Salin Kode Mermaid Gambar 1 Versi Utama (Untuk Markdown / Word / LaTeX)</summary>
         <pre><code>flowchart TD
-    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px;
-    classDef process fill:#F8FAFC,stroke:#64748B,color:#0F172A,stroke-width:1.5px;
-    classDef decision fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:2px;
-    classDef aiStep fill:#EFF6FF,stroke:#3B82F6,color:#1E3A8A,stroke-width:1.5px;
-    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2px;
-    classDef altPath fill:#FEF2F2,stroke:#EF4444,color:#7F1D1D,stroke-width:1.5px;
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef stepCard fill:#FFFFFF,stroke:#2563EB,color:#0F172A,stroke-width:2px;
+    classDef successCard fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2.5px,font-weight:bold;
 
-    Start(["Mulai: Calon Pembeli Kunjungi Web D2C dan Buka Widget Closify AI"]):::startEnd --> Inquiry["Konsumen Tanyakan Kebutuhan Produk, Varian, atau Rekomendasi"]:::process
+    Start(["<b>Mulai:</b> Calon Pembeli Membuka Chat Widget Closify AI di Web Toko"]):::startEnd
+    
+    Step1["<b>1. Eksplorasi Produk & Validasi Stok Riil Toko</b><br/>• Konsumen menanyakan katalog, varian warna, bahan, atau ketersediaan produk<br/>• AI mengeksekusi kueri deterministik via check_inventory langsung ke database<br/>• Fallback Cerdas: Jika varian habis, AI otomatis merekomendasikan alternatif ready-stock"]:::stepCard
+    
+    Step2["<b>2. Zero Return Protocol (Konsultasi Ukuran Presisi)</b><br/>• AI memandu konsultasi postur dengan menanyakan Tinggi Badan & Berat Badan (TB/BB)<br/>• Pencocokan presisi matriks size chart toko via recommend_size untuk cegah salah beli<br/>• Memangkas risiko pengembalian barang (return rate) hingga 0%"]:::stepCard
+    
+    Step3["<b>3. Green Logistics Nudge & Ringkasan Checkout</b><br/>• AI merekomendasikan opsi kurir rendah emisi karbon (Green Logistics Route)<br/>• Sistem menghitung ongkos kirim faktual dan menyajikan ringkasan rincian belanja<br/>• Konsumen mengonfirmasi persetujuan pembelian secara langsung di ruang obrolan"]:::stepCard
+    
+    Step4["<b>4. Native In-Chat Closing via Dynamic QRIS & Settlement</b><br/>• AI menerbitkan kartu invoice pembayaran Dynamic QRIS Midtrans langsung di chat<br/>• Pembeli memindai QRIS via m-Banking atau e-Wallet tanpa berpindah tab/halaman<br/>• Webhook payment gateway otomatis memvalidasi status pelunasan secara real-time"]:::successCard
+    
+    Done(["<b>Selesai:</b> Transaksi Lunas Terverifikasi & Sistem Siapkan Jadwal Pengiriman"]):::startEnd
 
-    Inquiry --> StockCheck["1. Pengecekan Inventaris Real-Time<br/>AI Panggil Tool check_inventory ke Database Toko"]:::aiStep
-    StockCheck --> IsStock{"Stok<br/>Tersedia?"}:::decision
-
-    IsStock -- "Tidak" --> OutOfStock["Tawarkan Alternatif Produk atau Notifikasi Restock"]:::altPath
-    OutOfStock --> EndWait(["Selesai / Lanjut Konsultasi"]):::startEnd
-
-    IsStock -- "Ya" --> ConsultPhase["2. Konsultasi Cerdas dan Nudge Keberlanjutan<br/>• Zero Return Protocol: Validasi TB/BB vs Size Chart<br/>• Green Logistics: Penawaran Opsi Pengiriman Rendah Emisi"]:::aiStep
-
-    ConsultPhase --> IsCheckout{"Setuju<br/>Checkout?"}:::decision
-
-    IsCheckout -- "Ragu / Batal" --> HoldCart["Simpan Riwayat Keranjang dan Berikan Pendampingan Ramah"]:::process
-    HoldCart --> EndWait
-
-    IsCheckout -- "Ya (Setuju)" --> InChatPay["3. Frictionless In-Chat Native Checkout<br/>• AI Panggil generate_payment dan Terbitkan Dynamic QRIS di Chat<br/>• Konsumen Pindai QRIS via Mobile Banking atau E-Wallet"]:::aiStep
-
-    InChatPay --> IsSettled{"Webhook:<br/>Status Lunas?"}:::decision
-
-    IsSettled -- "Batal / Expire" --> ExpireNotice["Notifikasi QR Kedaluwarsa dan Opsi Refresh Tagihan"]:::altPath
-    ExpireNotice --> EndWait
-
-    IsSettled -- "Ya (Lunas)" --> SuccessOrder["Pesanan Terkonfirmasi Otomatis<br/>Status Berubah: Lunas dan Paket Terjadwal Kirim"]:::success
-    SuccessOrder --> EndSuccess(["Selesai: Transaksi Berhasil Tanpa Pindah Tab"]):::startEnd</code></pre>
-
+    Start --> Step1
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Done</code></pre>
       </details>
     </section>
 
     <!-- ========================================================
-         FLOWCHART 2: ALUR ARSITEKTUR SISTEM & SIKLUS PENALARAN (RINGKAS)
+         OPSI 2: FLOWCHART 1 VERSI LOGIKA KEPUTUSAN RAMPING (DENGAN PERCABANGAN EFISIEN)
+         ======================================================== -->
+    <section class="diagram-card" id="flowchart-1-decision">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2>Gambar 1 (Alternatif Percabangan). Flowchart Logika Keputusan & Eksekusi Closing</h2>
+          <span>Format Logika Keputusan: Menggunakan simbol belah ketupat keputusan namun tetap ramping, tanpa garis loopback jauh</span>
+        </div>
+        <span class="dimension-badge blue">Format Percabangan Ramping</span>
+      </div>
+
+      <div class="diagram-canvas">
+        <div class="mermaid">
+flowchart TD
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef card fill:#FFFFFF,stroke:#2563EB,color:#0F172A,stroke-width:2px;
+    classDef decision fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:2px,font-weight:bold;
+    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2.5px,font-weight:bold;
+    classDef branch fill:#FEF2F2,stroke:#EF4444,color:#991B1B,stroke-width:1.5px;
+
+    Start(["Mulai: Konsumen Chat di Widget Web"]):::startEnd --> S1
+    
+    S1["<b>1. Kueri Produk & Cek Stok Faktual</b><br/>AI validasi stok riil via Tool <code>check_inventory</code>"]:::card --> D1{"Stok<br/>Ada?"}:::decision
+    
+    D1 -- "Habis" --> Alt1["Tawarkan Alternatif Varian / PO"]:::branch
+    D1 -- "Tersedia" --> S2
+    
+    S2["<b>2. Zero Return Protocol & Green Courier</b><br/>Rekomendasi ukuran via <code>recommend_size</code> (TB/BB) + Nudge kurir hijau"]:::card --> D2{"Setuju<br/>Beli?"}:::decision
+    
+    D2 -- "Ragu" --> Alt2["Simpan Keranjang & Beri Pendampingan"]:::branch
+    D2 -- "Ya" --> S3
+    
+    S3["<b>3. Dynamic QRIS In-Chat & Webhook Settlement</b><br/>AI generate QRIS Midtrans → Konsumen scan → Notifikasi lunas seketika"]:::success
+    
+    S3 --> Done(["Selesai: Pesanan Lunas & Terjadwal Kirim"]):::startEnd
+        </div>
+      </div>
+
+      <div class="card-caption">
+        <strong>Keunggulan di Naskah Esai:</strong>
+        <span>Cabang alternatif dihentikan secara lokal di samping node keputusan (tanpa loopback panjang ke bawah). Hal ini menjaga lebar kanvas tetap terkontrol sehingga teks tidak mengecil.</span>
+      </div>
+
+      <details class="code-accordion">
+        <summary>Salin Kode Mermaid Gambar 1 Alternatif Keputusan (Untuk Markdown / Word / LaTeX)</summary>
+        <pre><code>flowchart TD
+    classDef startEnd fill:#0F172A,stroke:#0F172A,color:#FFFFFF,stroke-width:2px,font-weight:bold;
+    classDef card fill:#FFFFFF,stroke:#2563EB,color:#0F172A,stroke-width:2px;
+    classDef decision fill:#FFFBEB,stroke:#D97706,color:#78350F,stroke-width:2px,font-weight:bold;
+    classDef success fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2.5px,font-weight:bold;
+    classDef branch fill:#FEF2F2,stroke:#EF4444,color:#991B1B,stroke-width:1.5px;
+
+    Start(["Mulai: Konsumen Chat di Widget Web"]):::startEnd --> S1
+    
+    S1["<b>1. Kueri Produk & Cek Stok Faktual</b><br/>AI validasi stok riil via Tool check_inventory"]:::card --> D1{"Stok<br/>Ada?"}:::decision
+    
+    D1 -- "Habis" --> Alt1["Tawarkan Alternatif Varian / PO"]:::branch
+    D1 -- "Tersedia" --> S2
+    
+    S2["<b>2. Zero Return Protocol & Green Courier</b><br/>Rekomendasi ukuran via recommend_size (TB/BB) + Nudge kurir hijau"]:::card --> D2{"Setuju<br/>Beli?"}:::decision
+    
+    D2 -- "Ragu" --> Alt2["Simpan Keranjang & Beri Pendampingan"]:::branch
+    D2 -- "Ya" --> S3
+    
+    S3["<b>3. Dynamic QRIS In-Chat & Webhook Settlement</b><br/>AI generate QRIS Midtrans -> Konsumen scan -> Notifikasi lunas seketika"]:::success
+    
+    S3 --> Done(["Selesai: Pesanan Lunas & Terjadwal Kirim"]):::startEnd</code></pre>
+      </details>
+    </section>
+
+    <!-- ========================================================
+         FLOWCHART 2: ARSITEKTUR SISTEM & SIKLUS PENALARAN (4 LAYER MODULAR)
          ======================================================== -->
     <section class="diagram-card" id="flowchart-2">
       <div class="card-header">
         <div class="card-title-group">
           <h2>Gambar 2. Flowchart Arsitektur Sistem & Siklus Penalaran ReAct AI Engine</h2>
-          <span>Pemisahan 4 Lapisan Utama: Client Gateway, Context Memory, Deterministic Tools, dan Guardrail Delivery</span>
+          <span>Pemisahan 4 Lapisan Modular: Client Gateway, Context Memory, Deterministic Tools, dan Guardrail Delivery</span>
         </div>
         <span class="dimension-badge">Tinggi Pas & Terbaca Jelas</span>
       </div>
@@ -447,13 +538,13 @@ flowchart TD
       startOnLoad: true,
       theme: 'neutral',
       fontFamily: 'Plus Jakarta Sans, sans-serif',
-      fontSize: 13,
+      fontSize: 14,
       flowchart: {
         useMaxWidth: true,
         htmlLabels: true,
         curve: 'basis',
-        nodeSpacing: 25,
-        rankSpacing: 30
+        nodeSpacing: 30,
+        rankSpacing: 35
       }
     });
   </script>
